@@ -103,11 +103,9 @@ class _MainScreenState extends State<MainScreen> {
             ),
           ]),
         ),
-        SizedBox(height: 0),
-        Expanded(
-            child: SingleChildScrollView(
+        SingleChildScrollView(
           child: FoodPageBody(),
-        )),
+        ),
         Expanded(
           child: SingleChildScrollView(
             physics: BouncingScrollPhysics(),

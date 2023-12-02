@@ -94,6 +94,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
         ),
         SizedBox(height: Dimensions.height20),
         Container(
+          padding: EdgeInsets.zero,
           margin: EdgeInsets.only(left: Dimensions.width30),
           child: Row(
             children: [
@@ -122,6 +123,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
             ],
           ),
         ),
+        SizedBox(height: Dimensions.height10),
       ],
     );
   }
