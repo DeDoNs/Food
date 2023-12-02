@@ -18,17 +18,7 @@ class FoodPageBody extends StatefulWidget {
 class _FoodPageBodyState extends State<FoodPageBody> {
   var num_rows = 1;
 
-  List _idItem = [];
-  List _imgMain = [];
-  List _imgFirst = [];
-  List _imgSecond = [];
-  List _nameItem = [];
-  List _ratingItem = [];
-  List _discriptionItem = [];
-  List _caloriesItem = [];
-  List _timeItem = [];
-  List _infoItem = [];
-  List _priceItem = [];
+  List img = [];
 
   var saleif = 0;
   var screen = 0;
@@ -50,23 +40,13 @@ class _FoodPageBodyState extends State<FoodPageBody> {
 
   Future loadInfoOffer() async {
     try {
-      final res = await http.get(Uri.parse(API.loadInfoOffer));
+      final res = await http.get(Uri.parse(API.loadBanner));
 
       if (res.statusCode == 200) {
         setState(() {
           final data = jsonDecode(res.body);
           num_rows = data['num'];
-          _idItem = data['dataIdItem'];
-          _imgMain = data['dataImgMainItem'];
-          _imgFirst = data['dataImgFirstItem'];
-          _imgSecond = data['dataImgSecondItem'];
-          _nameItem = data['dataNameItem'];
-          _ratingItem = data['dataRatingItem'];
-          _discriptionItem = data['dataDiscriptionItem'];
-          _caloriesItem = data['dataCaloriesItem'];
-          _timeItem = data['dataTimeItem'];
-          _infoItem = data['dataInfoItem'];
-          _priceItem = data['dataPriceItem'];
+          img = data['dataImg'];
         });
       }
     } catch (e) {
@@ -93,7 +73,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           height: Dimensions.pageViewContainer,
           child: PageView.builder(
               controller: pageController,
-              itemCount: _imgFirst == null ? 0 : _imgFirst.length,
+              itemCount: img == null ? 0 : img.length,
               itemBuilder: (context, position) {
                 return _buildPageItem(position);
               }),
@@ -181,9 +161,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
       child: Stack(
         children: [
           GestureDetector(
-            onTap: () {
-
-            },
+            onTap: () {},
             child: Container(
               height: Dimensions.pageViewContainer,
               margin: EdgeInsets.only(left: 5, right: 5),
@@ -193,70 +171,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                 image: DecorationImage(
                   fit: BoxFit.cover,
                   image: NetworkImage(
-                      API.loadImagelib + _imgFirst[index]['img_first']),
-                ),
-              ),
-            ),
-          ),
-          GestureDetector(
-            onTap: () {
-
-            },
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                height: Dimensions.pageViewTextContainer,
-                margin: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(Dimensions.radius30),
-                  color: Colors.white,
-                ),
-                child: Container(
-                  padding: EdgeInsets.only(top: 7, left: 15, right: 15),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        _nameItem[index]['name_item'],
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: Dimensions.font24,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          Wrap(
-                            children: List.generate(
-                                1,
-                                (index) => Icon(
-                                      Icons.star_border,
-                                      color: Colors.amber,
-                                      size: Dimensions.iconSize12,
-                                    )),
-                          ),
-                          SizedBox(
-                            width: 5,
-                            height: 0,
-                          ),
-                          Text(
-                            _ratingItem[index]['rating'],
-                            textAlign: TextAlign.start,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: Dimensions.font12,
-                              color: Color(0xFFccc7c5),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                      API.loadImagelib + img[index]['img']),
                 ),
               ),
             ),

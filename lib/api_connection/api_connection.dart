@@ -7,7 +7,7 @@ class API
   static const validateLogin = "$hostConnect/user/validate_login.php";
   static const signUp = "$hostConnect/user/signup.php";
   static const login = "$hostConnect/user/login.php";
-  static const loadInfoOffer = "$hostConnect/user/info_offer.php";
+  static const loadBanner = "$hostConnect/user/banner.php";
   static const loadInfoSaleItem = "$hostConnect/user/sale_item.php";
   static const load = "$hostConnect/user/categories.php";
   static const loadCategoriesItem = "$hostConnect/user/item_categories.php";

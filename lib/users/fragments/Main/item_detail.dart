@@ -116,14 +116,15 @@ class _ItemDetailState extends State<ItemDetail> {
               Container(
                 padding: EdgeInsets.only(
                   top: 50,
-                  left: 25,
+                  left: 0,
                   right: 25,
                 ),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    GestureDetector(
-                      onTap: () {
+                    RawMaterialButton(
+                      highlightColor: Colors.transparent,
+                      onPressed: () {
                         if (widget.screen == 1) {
                           Navigator.push(
                               context,
@@ -143,6 +144,7 @@ class _ItemDetailState extends State<ItemDetail> {
                         padding: EdgeInsets.all(8),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
+                          boxShadow: [BoxShadow(spreadRadius: 2, color: Colors.grey.withOpacity(0.5), blurRadius: 10, offset: Offset(0,3))],
                           color: Colors.white,
                         ),
                         child: Row(

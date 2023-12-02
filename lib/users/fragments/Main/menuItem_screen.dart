@@ -50,299 +50,120 @@ class _MenuItemState extends State<MenuItem> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView.builder(
-          padding: EdgeInsets.zero,
-          physics: BouncingScrollPhysics(),
-          shrinkWrap: true,
-          itemCount: num_rows == null ? 0 : num_rows,
-          itemBuilder: (context, index) {
-            return Column(
+      backgroundColor: Color(0xFFF5F5F3),
+      body: Column(
+        children: [
+          Container(
+          margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+          padding: EdgeInsets.only(
+              left: Dimensions.width20, right: Dimensions.width20),
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Container(
-                  margin: EdgeInsets.only(top: 50, bottom: Dimensions.height15),
-                  padding: EdgeInsets.only(
-                      left: Dimensions.width20, right: Dimensions.width20),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Категории",
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontFamily: 'Roboto',
-                            fontSize: Dimensions.font24,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w700,
+                Text(
+                  "Категории",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontFamily: 'Roboto',
+                    fontSize: Dimensions.font24,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ]),
+        ),
+          Expanded(
+            child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: Column(
+                children: [
+                  GridView.builder(
+                    padding: EdgeInsets.only(top: Dimensions.height15, left: Dimensions.width10, right:  Dimensions.width10),
+                    shrinkWrap: true,
+                    physics: BouncingScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+                    itemCount: num_rows == null ? 0 : num_rows,
+                    itemBuilder: (BuildContext context, index){
+                      return Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  idCategories = _idCategories[index]['id'];
+                                  nameCategories = _nameCategories[index]['name_categories'];
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ItemCategories(
+                                            idCategories: idCategories,
+                                            nameCategories: nameCategories,
+                                            page: widget.page),
+                                      ));
+                                },
+                                child: Container(
+                                  width: Dimensions.CategoriesCartSize,
+                                  height: Dimensions.CategoriesCartSize,
+                                  decoration: BoxDecoration(
+                                    borderRadius:
+                                    BorderRadius.circular(Dimensions.radius20),
+                                    color: Color(0xFFEEEEEE),
+                                  ),
+                                  child: Stack(
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(left: 15, top: 15),
+                                        child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                _nameCategories[index]['name_categories'],
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  fontFamily: 'Roboto',
+                                                  fontSize: Dimensions.font12,
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                            ]),
+                                      ),
+                                      SizedBox(height: 5),
+                                      Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            Container(
+                                                height: Dimensions.CategoriesImgSize,
+                                                width: Dimensions.CategoriesImgSize,
+                                                margin: EdgeInsets.only(left: Dimensions.CategoriesImgLeft, top: Dimensions.width30),
+                                                child: Image(
+                                                  image: NetworkImage(API.loadImagelib +
+                                                      _imgCategories[index]
+                                                      ['img_categories']),
+                                                  fit: BoxFit.cover,
+                                                )),
+                                          ])
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ]),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        idCategories = _idCategories[0]['id'];
-                        nameCategories = _nameCategories[0]['name_categories'];
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ItemCategories(
-                                  idCategories: idCategories,
-                                  nameCategories: nameCategories,
-                                  page: widget.page),
-                            ));
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(left: 15),
-                        width: 175,
-                        height: 175,
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              BorderRadius.circular(Dimensions.radius20),
-                          color: Color(0xFFEEEEEE),
-                        ),
-                        child: Stack(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(left: 15, top: 15),
-                              child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      _nameCategories[0]['name_categories'],
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        fontFamily: 'Roboto',
-                                        fontSize: Dimensions.font12,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ]),
-                            ),
-                            SizedBox(height: 5),
-                            Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                      height: 100,
-                                      width: 100,
-                                      margin:
-                                          EdgeInsets.only(left: 37, top: 20),
-                                      child: Image(
-                                        image: NetworkImage(API.loadImagelib +
-                                            _imgCategories[0]
-                                                ['img_categories']),
-                                        fit: BoxFit.cover,
-                                      )),
-                                ])
-                          ],
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        idCategories = _idCategories[1]['id'];
-                        nameCategories = _nameCategories[1]['name_categories'];
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ItemCategories(
-                                  idCategories: idCategories,
-                                  nameCategories: nameCategories,
-                                  page: widget.page),
-                            ));
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(right: 15),
-                        width: 175,
-                        height: 175,
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              BorderRadius.circular(Dimensions.radius20),
-                          color: Color(0xFFEEEEEE),
-                        ),
-                        child: Stack(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(left: 15, top: 15),
-                              child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      _nameCategories[1]['name_categories'],
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        fontFamily: 'Roboto',
-                                        fontSize: Dimensions.font12,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ]),
-                            ),
-                            SizedBox(height: 5),
-                            Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                      height: 100,
-                                      width: 100,
-                                      margin:
-                                          EdgeInsets.only(left: 37, top: 20),
-                                      child: Image(
-                                        image: NetworkImage(API.loadImagelib +
-                                            _imgCategories[1]
-                                                ['img_categories']),
-                                        fit: BoxFit.cover,
-                                      )),
-                                ])
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        idCategories = _idCategories[2]['id'];
-                        nameCategories = _nameCategories[2]['name_categories'];
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ItemCategories(
-                                  idCategories: idCategories,
-                                  nameCategories: nameCategories,
-                                  page: widget.page),
-                            ));
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(left: 15, top: 15),
-                        width: 175,
-                        height: 175,
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              BorderRadius.circular(Dimensions.radius20),
-                          color: Color(0xFFEEEEEE),
-                        ),
-                        child: Stack(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(left: 15, top: 15),
-                              child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      _nameCategories[2]['name_categories'],
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        fontFamily: 'Roboto',
-                                        fontSize: Dimensions.font12,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ]),
-                            ),
-                            SizedBox(height: 5),
-                            Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                      height: 100,
-                                      width: 100,
-                                      margin:
-                                          EdgeInsets.only(left: 37, top: 20),
-                                      child: Image(
-                                        image: NetworkImage(API.loadImagelib +
-                                            _imgCategories[2]
-                                                ['img_categories']),
-                                        fit: BoxFit.cover,
-                                      )),
-                                ])
-                          ],
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        idCategories = _idCategories[3]['id'];
-                        nameCategories = _nameCategories[3]['name_categories'];
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ItemCategories(
-                                  idCategories: idCategories,
-                                  nameCategories: nameCategories,
-                                  page: widget.page),
-                            ));
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(right: 15, top: 15),
-                        width: 175,
-                        height: 175,
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              BorderRadius.circular(Dimensions.radius20),
-                          color: Color(0xFFEEEEEE),
-                        ),
-                        child: Stack(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(left: 15, top: 15),
-                              child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      _nameCategories[3]['name_categories'],
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        fontFamily: 'Roboto',
-                                        fontSize: Dimensions.font12,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ]),
-                            ),
-                            SizedBox(height: 5),
-                            Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                      height: 100,
-                                      width: 100,
-                                      margin:
-                                          EdgeInsets.only(left: 37, top: 20),
-                                      child: Image(
-                                        image: NetworkImage(API.loadImagelib +
-                                            _imgCategories[3]
-                                                ['img_categories']),
-                                        fit: BoxFit.cover,
-                                      )),
-                                ])
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            );
-          }),
+                        ],
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+
     );
   }
 }

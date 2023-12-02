@@ -26,7 +26,6 @@ class _ItemCategoriesState extends State<ItemCategories> {
   List _imgMain = [];
   List _imgSecond = [];
   List _nameItem = [];
-  List _ratingItem = [];
   List _discriptionItem = [];
   List _caloriesItem = [];
   List _belkiItem = [];
@@ -67,7 +66,6 @@ class _ItemCategoriesState extends State<ItemCategories> {
           _imgMain = data['dataImgMainItem'];
           _imgSecond = data['dataImgSecondItem'];
           _nameItem = data['dataNameItem'];
-          _ratingItem = data['dataRatingItem'];
           _discriptionItem = data['dataDiscriptionItem'];
           _caloriesItem = data['dataCaloriesItem'];
           _belkiItem = data['dataBelkiItem'];
@@ -92,20 +90,20 @@ class _ItemCategoriesState extends State<ItemCategories> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFF5F5F3),
       body: Column(children: [
           Row(
             children: [
               Container(
                 padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).padding.top,
-                  left: 25,
-                  right: 35
+                  top: MediaQuery.of(context).padding.top, bottom: Dimensions.height10
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    GestureDetector(
-                      onTap: () {
+                    RawMaterialButton(
+                      highlightColor: Colors.transparent,
+                      onPressed: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -117,6 +115,7 @@ class _ItemCategoriesState extends State<ItemCategories> {
                         padding: EdgeInsets.all(8),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
+                          boxShadow: [BoxShadow(spreadRadius: 2, color: Colors.grey.withOpacity(0.2), blurRadius: 10, offset: Offset(0,3))],
                           color: Colors.white,
                         ),
                         child: Row(
@@ -136,7 +135,7 @@ class _ItemCategoriesState extends State<ItemCategories> {
               ),
               Container(
                 padding:
-                    EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+                    EdgeInsets.only(top: MediaQuery.of(context).padding.top, bottom: Dimensions.height10),
                 child: Text(
                   widget.nameCategories,
                   maxLines: 1,
@@ -157,14 +156,16 @@ class _ItemCategoriesState extends State<ItemCategories> {
         Expanded(
           child: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
-            child: ListView.builder(
-              padding: EdgeInsets.only(top: Dimensions.height20),
+            child: ListView.separated(
+              padding: EdgeInsets.only(top: Dimensions.height10),
               physics: BouncingScrollPhysics(),
               shrinkWrap: true,
               itemCount: _imgMain == null ? 0 : _imgMain.length,
+              separatorBuilder: (context, index) => Divider(color: Colors.black26, height: 1, indent: Dimensions.CatdividerInd, endIndent: Dimensions.CatdividerEndInd, thickness: 2),
               itemBuilder: (context, index) {
                 return Container(
                   margin: EdgeInsets.only(
+                      top: 10,
                       left: Dimensions.width20,
                       right: Dimensions.width20,
                       bottom: 10),

@@ -83,10 +83,10 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFAFAFA),
+      backgroundColor: Color(0xFFF5F5F3),
       body: Column(children: [
         Container(
-          margin: EdgeInsets.only(top: 50, bottom: Dimensions.height15),
+          margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top, bottom: Dimensions.height15),
           padding: EdgeInsets.only(
               left: Dimensions.width20, right: Dimensions.width20),
           child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
@@ -96,7 +96,7 @@ class _MainScreenState extends State<MainScreen> {
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontFamily: 'Roboto',
-                fontSize: Dimensions.font18,
+                fontSize: Dimensions.font24,
                 color: Colors.black,
                 fontWeight: FontWeight.w700,
               ),
@@ -104,23 +104,6 @@ class _MainScreenState extends State<MainScreen> {
           ]),
         ),
         SizedBox(height: 0),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "Предложения дня",
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontFamily: 'Roboto',
-                fontSize: Dimensions.font20,
-                color: Colors.amber,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 5),
         Expanded(
             child: SingleChildScrollView(
           child: FoodPageBody(),
@@ -128,14 +111,16 @@ class _MainScreenState extends State<MainScreen> {
         Expanded(
           child: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
-            child: ListView.builder(
+            child: ListView.separated(
                 padding: EdgeInsets.zero,
                 physics: BouncingScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: _imgMain == null ? 0 : _imgMain.length,
+                separatorBuilder: (context, index) => Divider(color: Colors.black26, height: 1, indent: Dimensions.MaindividerInd, endIndent: Dimensions.MaindividerEndInd, thickness: 2),
                 itemBuilder: (context, index) {
                   return Container(
                     margin: EdgeInsets.only(
+                      top: 10,
                         left: Dimensions.width20,
                         right: Dimensions.width20,
                         bottom: 10),
@@ -166,7 +151,7 @@ class _MainScreenState extends State<MainScreen> {
                               height: Dimensions.listViewImgSize,
                               decoration: BoxDecoration(
                                   borderRadius:
-                                      BorderRadius.circular(Dimensions.radius20),
+                                      BorderRadius.circular(Dimensions.radius15),
                                   color: Colors.white38,
                                   image: DecorationImage(
                                     fit: BoxFit.cover,
@@ -204,7 +189,7 @@ class _MainScreenState extends State<MainScreen> {
                                           fontWeight: FontWeight.w700,
                                         ),
                                       ),
-                                      SizedBox(height: Dimensions.height10),
+                                      SizedBox(height: 8),
                                       Text(
                                         _discriptionItem[index]
                                             ['discription_item'],
@@ -218,7 +203,7 @@ class _MainScreenState extends State<MainScreen> {
                                         ),
                                       ),
                                       SizedBox(
-                                        height: Dimensions.height10,
+                                        height: 8,
                                       ),
                                       Row(
                                         children: [

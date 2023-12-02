@@ -53,11 +53,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFAFAFA),
+      backgroundColor: Color(0xFFF5F5F3),
       body: Column(children: [
         Container(
           margin: EdgeInsets.only(
-            top: 50,
+            top: MediaQuery.of(context).padding.top,
           ),
           padding: EdgeInsets.only(
               left: Dimensions.width20, right: Dimensions.width20),

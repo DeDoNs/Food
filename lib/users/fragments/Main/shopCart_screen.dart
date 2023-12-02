@@ -84,17 +84,18 @@ class _ShopCartState extends State<ShopCart> {
 
   Future sumload() async {
     try {
-      var resp = await http.get(
+      var resp1 = await http.get(
         Uri.parse(API.sumLoad),
       );
-      if (resp.statusCode == 200) {
+      if (resp1.statusCode == 200) {
         //200 - API OK
         setState(() {
-          final data = jsonDecode(resp.body);
+          final data = jsonDecode(resp1.body);
           _priceAll = data['SUM(price_full)'];
         });
       }
     } catch (e) {
+      _priceAll = "0";
       print(e.toString());
     }
   }
@@ -105,13 +106,13 @@ class _ShopCartState extends State<ShopCart> {
         Uri.parse(API.deleteCart),
         body: {'id': id},
       );
-      if (resp.statusCode == 200) {} //200 - API OK
+      if (resp.statusCode == 200) {loadItem();sumload();} //200 - API OK
     } catch (e) {
       print(e.toString());
     }
   }
 
-  updateNumber() async {
+  Future updateNumber() async {
     try {
       var resp = await http.post(
         Uri.parse(API.updateNumber),
@@ -129,7 +130,7 @@ class _ShopCartState extends State<ShopCart> {
     }
   }
 
-  updatePrice() async {
+  Future updatePrice() async {
     try {
       var resp = await http.post(
         Uri.parse(API.updatePrice),
@@ -141,6 +142,7 @@ class _ShopCartState extends State<ShopCart> {
           final data = jsonDecode(resp.body);
           _priceFull = data['price_update'];
         });
+        sumload();
       }
     } catch (e) {
       print(e.toString());
@@ -157,7 +159,7 @@ class _ShopCartState extends State<ShopCart> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xFFFAFAFA),
+        backgroundColor: Color(0xFFF5F5F3),
         body: Column(children: [
           Container(
             margin: EdgeInsets.only(top: 50, bottom: Dimensions.height15),
@@ -180,334 +182,421 @@ class _ShopCartState extends State<ShopCart> {
           Expanded(
             child: SingleChildScrollView(
               physics: BouncingScrollPhysics(),
-              child: ListView.builder(
-                  padding: EdgeInsets.zero,
-                  physics: BouncingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: _numberItem == null ? 0 : _numberItem.length,
-                  itemBuilder: (context, index) {
-                    cart = _numberItem[index]['number_item'];
-                    cart_all = int.parse(cart);
-                    return Container(
-                      margin: EdgeInsets.only(
-                          left: Dimensions.width20,
-                          right: Dimensions.width20,
-                          bottom: 10),
-                      child: Row(
-                        children: [
-                          SizedBox(width: Dimensions.width20),
-                          Container(
-                            width: Dimensions.listViewImgSizeCart,
-                            height: Dimensions.listViewImgSizeCart,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.circular(Dimensions.radius20),
-                                color: Colors.white38,
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(API.loadImagelib +
-                                      _imgMain[index]['imgMain_item']),
-                                )),
-                          ),
-                          Stack(alignment: Alignment.bottomRight, children: [
-                            Container(
-                              height: Dimensions.listViewTextContSizeCart,
-                              width: Dimensions.listViewTextContWedthCart,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    topRight:
-                                        Radius.circular(Dimensions.radius20),
-                                    bottomRight:
-                                        Radius.circular(Dimensions.radius20)),
-                                color: Colors.white,
+              child: Column(
+                children: [
+                  ListView.separated(
+                      padding: EdgeInsets.zero,
+                      physics: BouncingScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: _numberItem == null ? 0 : _numberItem.length,
+                      separatorBuilder: (context, index) => Divider(color: Colors.black26, height: 1, indent: Dimensions.CartdividerInd, endIndent: Dimensions.CartdividerEndInd, thickness: 2),
+                      itemBuilder: (context, index) {
+                        cart = _numberItem[index]['number_item'];
+                        cart_all = int.parse(cart);
+                        return Container(
+                          margin: EdgeInsets.only(
+                              top: 10,
+                              left: Dimensions.width20,
+                              right: Dimensions.width20,
+                              bottom: 10),
+                          child: Row(
+                            children: [
+                              SizedBox(width: Dimensions.width20),
+                              Container(
+                                width: Dimensions.listViewImgSizeCart,
+                                height: Dimensions.listViewImgSizeCart,
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.circular(Dimensions.radius15),
+                                    color: Colors.white38,
+                                    image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: NetworkImage(API.loadImagelib +
+                                          _imgMain[index]['imgMain_item']),
+                                    )),
                               ),
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                    left: Dimensions.width20,
-                                    right: Dimensions.width20),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      _nameItem[index]['name_item'],
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        fontFamily: 'Roboto',
-                                        fontSize: Dimensions.font18,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                    SizedBox(height: 5),
-                                    Row(
+                              Stack(alignment: Alignment.bottomRight, children: [
+                                Container(
+                                  height: Dimensions.listViewTextContSizeCart,
+                                  width: Dimensions.listViewTextContWedthCart,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                        topRight:
+                                            Radius.circular(Dimensions.radius20),
+                                        bottomRight:
+                                            Radius.circular(Dimensions.radius20)),
+                                    color: Colors.white,
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                        left: Dimensions.width20,
+                                        right: Dimensions.width20),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        Container(
-                                          padding: EdgeInsets.all(5.0),
-                                          decoration: BoxDecoration(
-                                              color: Colors.amber,
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(10.0))),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                _priceFull[index]['price_full'],
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
-                                                  fontFamily: 'Roboto',
-                                                  fontSize: Dimensions.font12,
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.w700,
-                                                ),
+                                        Text(
+                                          _nameItem[index]['name_item'],
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                            fontFamily: 'Roboto',
+                                            fontSize: Dimensions.font18,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                        SizedBox(height: 5),
+                                        Row(
+                                          children: [
+                                            Container(
+                                              padding: EdgeInsets.all(5.0),
+                                              decoration: BoxDecoration(
+                                                  color: Colors.amber,
+                                                  borderRadius: BorderRadius.all(
+                                                      Radius.circular(10.0))),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    _priceFull[index]['price_full'],
+                                                    maxLines: 1,
+                                                    overflow: TextOverflow.ellipsis,
+                                                    style: TextStyle(
+                                                      fontFamily: 'Roboto',
+                                                      fontSize: Dimensions.font12,
+                                                      color: Colors.black,
+                                                      fontWeight: FontWeight.w700,
+                                                    ),
+                                                  ),
+                                                  SizedBox(width: 2),
+                                                  Text(
+                                                    "₽",
+                                                    maxLines: 1,
+                                                    overflow: TextOverflow.ellipsis,
+                                                    style: TextStyle(
+                                                      fontFamily: 'Roboto',
+                                                      fontSize: Dimensions.font12,
+                                                      color: Colors.black,
+                                                      fontWeight: FontWeight.w700,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                              SizedBox(width: 2),
-                                              Text(
-                                                "₽",
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
-                                                  fontFamily: 'Roboto',
-                                                  fontSize: Dimensions.font12,
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.w700,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(right: 10, bottom: 10),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    height: Dimensions.height35,
-                                    width: 80,
-                                    padding: EdgeInsets.all(5.0),
-                                    decoration: BoxDecoration(
-                                        color: Color(0xFFECEFF1),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(100.0))),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        GestureDetector(
-                                          onTap: () {
-                                            cart = _numberItem[index]
-                                                ['number_item'];
-                                            cart_all = int.parse(cart);
-                                            if (cart_all > 1) {
-                                              cart = _numberItem[index]
-                                                  ['number_item'];
-                                              cart_all = int.parse(cart);
-                                              cart_all--;
-                                              id = _id[index]['id'];
-                                              cart_update = cart_all.toString();
-                                              updateNumber();
-                                              setState(() {
-                                                cart = _numberItem[index]
-                                                    ['number_item'];
-                                                cart_all = int.parse(cart);
-                                                priceUpdate = int.parse(
-                                                        _priceFull[index]
-                                                            ['price_full']) -
-                                                    int.parse(_priceOne[index]
-                                                        ['price_one']);
-                                                updatePrice();
-                                                sumload();
-                                              });
-                                            } else {
-                                              id = _id[index]['id'];
-                                              setState(() {
-                                                deleteItemCart();
-                                                initState();
-                                              });
-                                            }
-                                          },
-                                          child: Text(
-                                            "- ",
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                              fontFamily: 'Roboto',
-                                              fontSize: Dimensions.font12,
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w400,
                                             ),
-                                          ),
-                                        ),
-                                        Container(
-                                          padding: EdgeInsets.all(5),
-                                          decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: Colors.white),
-                                          child: Text(
-                                            cart_all.toString(),
-                                            textAlign: TextAlign.center,
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                              fontFamily: 'Roboto',
-                                              fontSize: Dimensions.font8,
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            cart = _numberItem[index]
-                                                ['number_item'];
-                                            cart_all = int.parse(cart);
-                                            cart_all++;
-                                            id = _id[index]['id'];
-                                            cart_update = cart_all.toString();
-                                            updateNumber();
-                                            setState(() {
-                                              cart = _numberItem[index]
-                                                  ['number_item'];
-                                              cart_all = int.parse(cart);
-                                              priceUpdate = int.parse(
-                                                      _priceFull[index]
-                                                          ['price_full']) +
-                                                  int.parse(_priceOne[index]
-                                                      ['price_one']);
-                                              updatePrice();
-                                              sumload();
-                                            });
-                                          },
-                                          child: Text(
-                                            "+",
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                              fontFamily: 'Roboto',
-                                              fontSize: Dimensions.font12,
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
+                                          ],
                                         ),
                                       ],
                                     ),
                                   ),
-                                ],
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(right: 10, bottom: 10),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        height: Dimensions.height30,
+                                        width: 70,
+                                        padding: EdgeInsets.all(5.0),
+                                        decoration: BoxDecoration(
+                                            color: Color(0xFFECEFF1),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(100.0))),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                cart = _numberItem[index]
+                                                    ['number_item'];
+                                                cart_all = int.parse(cart);
+                                                if (cart_all > 1) {
+                                                  cart = _numberItem[index]
+                                                      ['number_item'];
+                                                  cart_all = int.parse(cart);
+                                                  cart_all--;
+                                                  id = _id[index]['id'];
+                                                  cart_update = cart_all.toString();
+                                                  updateNumber();
+                                                  setState(() {
+                                                    cart = _numberItem[index]
+                                                        ['number_item'];
+                                                    cart_all = int.parse(cart);
+                                                    priceUpdate = int.parse(
+                                                            _priceFull[index]
+                                                                ['price_full']) -
+                                                        int.parse(_priceOne[index]
+                                                            ['price_one']);});
+                                                    updatePrice();
+                                                } else {
+                                                  id = _id[index]['id'];
+                                                  setState(() {
+                                                    deleteItemCart();
+                                                  });
+                                                }
+                                              },
+                                              child: Text(
+                                                "- ",
+                                                maxLines: 1,
+                                                textAlign: TextAlign.center,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  fontFamily: 'Roboto',
+                                                  fontSize: Dimensions.font8,
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              padding: EdgeInsets.only(top: 5, bottom: 5, right: 5, left: 5),
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: Colors.white),
+                                              child: Text(
+                                                cart_all.toString(),
+                                                textAlign: TextAlign.center,
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  fontFamily: 'Roboto',
+                                                  fontSize: 10,
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                cart = _numberItem[index]
+                                                    ['number_item'];
+                                                cart_all = int.parse(cart);
+                                                cart_all++;
+                                                id = _id[index]['id'];
+                                                cart_update = cart_all.toString();
+                                                updateNumber();
+                                                setState(() {
+                                                  cart = _numberItem[index]
+                                                      ['number_item'];
+                                                  cart_all = int.parse(cart);
+                                                  priceUpdate = int.parse(
+                                                          _priceFull[index]
+                                                              ['price_full']) +
+                                                      int.parse(_priceOne[index]
+                                                          ['price_one']);
+                                                  updatePrice();
+                                                });
+                                              },
+                                              child: Text(
+                                                "+",
+                                                maxLines: 1,
+                                                textAlign: TextAlign.center,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  fontFamily: 'Roboto',
+                                                  fontSize: Dimensions.font8,
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.w100,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ]),
+                            ],
+                          ),
+                        );
+                      }),
+                  Divider(color: Colors.black26, height: 1, indent: Dimensions.width30, endIndent: Dimensions.width30, thickness: 0.2),
+                  SizedBox(height: Dimensions.height10),
+                  Container(
+                    padding: EdgeInsets.only(
+                        left: Dimensions.width30, right: Dimensions.width30),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Итого",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: Dimensions.font24,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              _priceAll,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: Dimensions.font24,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
-                          ]),
-                        ],
-                      ),
-                    );
-                  }),
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.only(
-                left: Dimensions.width30, right: Dimensions.width30),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Итого",
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: Dimensions.font24,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w700,
+                            Text(
+                              " ₽",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: Dimensions.font18,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Row(
-                  children: [
-                    Text(
-                      _priceAll,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: Dimensions.font24,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w700,
-                      ),
+                  Container(
+                    padding: EdgeInsets.only(left: Dimensions.width30),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          "${num_rows} позиции",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: Dimensions.font12,
+                            color: Colors.grey,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
                     ),
-                    Text(
-                      " ₽",
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: Dimensions.font18,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.only(left: Dimensions.width30),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  "${num_rows} позиции",
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: Dimensions.font12,
-                    color: Colors.grey,
-                    fontWeight: FontWeight.w500,
                   ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.all(10),
-            child: Container(
-              width: Dimensions.buttonfullwidgt,
-              height: Dimensions.height45,
-              child: RawMaterialButton(
-                fillColor: Colors.amber,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                elevation: 2,
-                onPressed: () {},
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Оформить заказ",
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: Dimensions.font18,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                ),
+                ],
               ),
             ),
           ),
-        ]));
+          Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: Container(
+                    width: Dimensions.buttonfullwidgt,
+                    height: Dimensions.height45,
+                    child: RawMaterialButton(
+                      fillColor: Colors.amber,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      elevation: 2,
+                      onPressed: () {
+                        showModalBottomSheet(context: context, isDismissible: false, backgroundColor: Colors.transparent,builder: (context){
+                          return Container(
+                            height: 140,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+                            ),
+                            padding: EdgeInsets.only(bottom: Dimensions.height15, left: Dimensions.width30),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(bottom: Dimensions.height15),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Оформление заказа",
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontFamily: 'Roboto',
+                                          fontSize: Dimensions.font24,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      RawMaterialButton(
+                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                                        constraints: BoxConstraints.tight(Size(40,40)),
+                                        highlightColor: Colors.transparent,
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Icon(
+                                          Icons.close,
+                                          color: Colors.amber,
+                                          size: Dimensions.iconSize24,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  width: Dimensions.buttonfullwidgt,
+                                  height: Dimensions.height45,
+                                  child: RawMaterialButton(
+                                    fillColor: Colors.amber,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(50),
+                                    ),
+                                    elevation: 2,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "Оплатить",
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                            fontFamily: 'Roboto',
+                                            fontSize: Dimensions.font18,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    onPressed: () {},
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        });
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Оформить заказ на ${_priceAll} ₽",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontFamily: 'Roboto',
+                              fontSize: Dimensions.font18,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+        ])
+    );
   }
 }
