@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:progress_indicators/progress_indicators.dart';
 import 'package:regester/api_connection/api_connection.dart';
 import 'package:regester/height_screen/dimensions.dart';
 import 'package:http/http.dart' as http;
@@ -177,14 +178,43 @@ class _ShopCartState extends State<ShopCart> {
 
   @override
   Widget build(BuildContext context) {
-    if (_isLoading) {return CircularProgressIndicator();}
+    if (_isLoading) {
+      return Scaffold(
+        backgroundColor: Color(0xFFF5F5F3),
+        body: Column(children: [
+          Container(
+            margin: EdgeInsets.only(top: Dimensions.height40, bottom: Dimensions.height15),
+            padding: EdgeInsets.only(
+                left: Dimensions.width20, right: Dimensions.width20),
+            child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+              Text(
+                "Корзина",
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: Dimensions.font24,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ]),
+          ),
+          Container(
+            padding: EdgeInsets.only(top: Dimensions.screenHeight / 3),
+            child: JumpingDotsProgressIndicator(
+              fontSize: 50.0,
+            ),
+          )
+        ],),
+      );}
     else {
       if (num_rows == 0) {
         return Scaffold(
           backgroundColor: Color(0xFFF5F5F3),
           body: Column(children: [
             Container(
-              margin: EdgeInsets.only(top: 50, bottom: Dimensions.height15),
+              margin: EdgeInsets.only(top: Dimensions.height40, bottom: Dimensions.height15),
               padding: EdgeInsets.only(
                   left: Dimensions.width20, right: Dimensions.width20),
               child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
@@ -279,7 +309,7 @@ class _ShopCartState extends State<ShopCart> {
             backgroundColor: Color(0xFFF5F5F3),
             body: Column(children: [
               Container(
-                margin: EdgeInsets.only(top: 50, bottom: Dimensions.height15),
+                margin: EdgeInsets.only(top: Dimensions.height40, bottom: Dimensions.height15),
                 padding: EdgeInsets.only(
                     left: Dimensions.width20, right: Dimensions.width20),
                 child: Row(
