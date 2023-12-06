@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   get: ^4.6.6
   http: ^1.1.0
+  shimmer_animation: ^2.1.0+1
   fluttertoast: ^8.2.3
   email_validator: ^2.1.17
   shared_preferences: ^2.0.0
@@ -44,6 +45,7 @@ dependencies:
   dots_indicator: ^2.0.0
   image_picker: ^1.0.4
   flutter_launcher_icons: ^0.13.1
+  progress_indicators: ^1.0.0
 
 dev_dependencies:
   flutter_test:

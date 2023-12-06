@@ -6,6 +6,7 @@ import 'package:regester/api_connection/api_connection.dart';
 import 'package:regester/height_screen/dimensions.dart';
 import 'package:regester/users/fragments/Main/board.dart';
 import 'package:regester/users/fragments/Main/item_detail.dart';
+import 'package:shimmer_animation/shimmer_animation.dart';
 
 class ItemCategories extends StatefulWidget {
   final int page;
@@ -22,6 +23,9 @@ class ItemCategories extends StatefulWidget {
 }
 
 class _ItemCategoriesState extends State<ItemCategories> {
+
+  bool isLoading = true;
+
   List _idItem = [];
   List _imgMain = [];
   List _imgSecond = [];
@@ -85,6 +89,11 @@ class _ItemCategoriesState extends State<ItemCategories> {
   void initState() {
     loadItemCategories();
     super.initState();
+    Future.delayed(Duration(seconds: 1), () {
+      setState(() {
+        isLoading = false;
+      });
+    });
   }
 
   @override
@@ -96,7 +105,7 @@ class _ItemCategoriesState extends State<ItemCategories> {
             children: [
               Container(
                 padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).padding.top, bottom: Dimensions.height10
+                  top: Dimensions.height40, bottom: Dimensions.height10
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -133,194 +142,9 @@ class _ItemCategoriesState extends State<ItemCategories> {
                   ],
                 ),
               ),
-              Container(
-                padding:
-                    EdgeInsets.only(top: MediaQuery.of(context).padding.top, bottom: Dimensions.height10),
-                child: Text(
-                  widget.nameCategories,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: Dimensions.font24,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-          ),
-          Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: []),
+              _buildMainText()
         ]),
-        Expanded(
-          child: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-            child: ListView.separated(
-              padding: EdgeInsets.only(top: Dimensions.height10),
-              physics: BouncingScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: _imgMain == null ? 0 : _imgMain.length,
-              separatorBuilder: (context, index) => Divider(color: Colors.black26, height: 1, indent: Dimensions.CatdividerInd, endIndent: Dimensions.CatdividerEndInd, thickness: 2),
-              itemBuilder: (context, index) {
-                return Container(
-                  margin: EdgeInsets.only(
-                      top: 10,
-                      left: Dimensions.width20,
-                      right: Dimensions.width20,
-                      bottom: 10),
-                  child: GestureDetector(
-                    onTap: () {
-                      idItem = _idItem[index]['id'];
-                      imgMain = _imgMain[index]['img_main'];
-                      imgSecond = _imgSecond[index]['img_second'];
-                      name = _nameItem[index]['name_item'];
-                      discription = _discriptionItem[index]['discription_item'];
-                      calories = _caloriesItem[index]['calories_item'];
-                      belki = _belkiItem[index]['belki_item'];
-                      fats = _fatsItem[index]['fats_item'];
-                      carbons = _carbonsItem[index]['carbons_item'];
-                      time = _timeItem[index]['time_item'];
-                      info = _infoItem[index]['info_item'];
-                      price = _priceItem[index]['price_item'];
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ItemDetail(
-                              screen: screen,
-                              idItem: idItem,
-                              imgMain: imgMain,
-                              imgSecond: imgSecond,
-                              name: name,
-                              discription: discription,
-                              calories: calories,
-                              belki: belki,
-                              fats: fats,
-                              carbons: carbons,
-                              time: time,
-                              info: info,
-                              price: price,
-                              sale: '',
-                              id: '',
-                              page: widget.page,
-                              idCategories: widget.idCategories,
-                              nameCategories: widget.nameCategories,
-                            ),
-                          ));
-                    },
-                    child: Row(
-                      children: [
-                        Container(
-                          width: Dimensions.listViewImgSize,
-                          height: Dimensions.listViewImgSize,
-                          decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.circular(Dimensions.radius20),
-                              color: Colors.white38,
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: NetworkImage(API.loadImagelib +
-                                    _imgMain[index]['img_main']),
-                              )),
-                        ),
-                        Expanded(
-                          child: Container(
-                            height: Dimensions.listViewTextContSize,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                  topRight:
-                                      Radius.circular(Dimensions.radius20),
-                                  bottomRight:
-                                      Radius.circular(Dimensions.radius20)),
-                              color: Colors.white,
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                  left: Dimensions.width20,
-                                  right: Dimensions.width20),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    _nameItem[index]['name_item'],
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      fontFamily: 'Roboto',
-                                      fontSize: Dimensions.font18,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                  SizedBox(height: Dimensions.height10),
-                                  Text(
-                                    _discriptionItem[index]['discription_item'],
-                                    textAlign: TextAlign.start,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      fontFamily: 'Roboto',
-                                      fontSize: Dimensions.font8,
-                                      color: Color(0xFFccc7c5),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: Dimensions.height10,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Container(
-                                        padding: EdgeInsets.all(5.0),
-                                        decoration: BoxDecoration(
-                                            color: Colors.amber,
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(10.0))),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              _priceItem[index]['price_item'],
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                fontFamily: 'Roboto',
-                                                fontSize: Dimensions.font18,
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.w700,
-                                              ),
-                                            ),
-                                            SizedBox(width: 2),
-                                            Text(
-                                              "₽",
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                fontFamily: 'Roboto',
-                                                fontSize: Dimensions.font12,
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.w700,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
-        ),
+        _buildListView(),
       ]),
       floatingActionButton: Container(
         width: 50,
@@ -348,4 +172,263 @@ class _ItemCategoriesState extends State<ItemCategories> {
         ),
       ),
     );}
+
+  Widget _buildMainText() {
+    if (isLoading==true) {
+      return Shimmer(
+        child: Container(
+          padding: EdgeInsets.only(top: Dimensions.height40, bottom: Dimensions.height10),
+          child: Container(
+                width: 180,
+                height: Dimensions.height30,
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(16),
+                ),
+              ),
+        ),
+      );
+    } else {return Container(
+      padding:
+      EdgeInsets.only(top: Dimensions.height40, bottom: Dimensions.height10),
+      child: Text(
+        widget.nameCategories,
+        maxLines: 1,
+        textAlign: TextAlign.center,
+        overflow: TextOverflow.ellipsis,
+        style: TextStyle(
+          fontFamily: 'Roboto',
+          fontSize: Dimensions.font24,
+          color: Colors.black,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+    );}
+  }
+
+  Widget _buildListView() {
+    if (isLoading==true) {
+      return Expanded(
+        child: Shimmer(
+          child: SingleChildScrollView(
+            padding: EdgeInsets.only(top: Dimensions.height10),
+            physics: NeverScrollableScrollPhysics(),
+            child: Column(
+              children: [
+                Container(
+                  height: Dimensions.listViewImgSize,
+                  margin: EdgeInsets.only(
+                      top: 10,
+                      left: Dimensions.width20,
+                      right: Dimensions.width20,
+                      bottom: 10),
+                  decoration: BoxDecoration(
+                      borderRadius:
+                      BorderRadius.circular(Dimensions.radius15),
+                      color: Colors.grey[300]),
+
+                ),
+                Container(
+                  height: Dimensions.listViewImgSize,
+                  margin: EdgeInsets.only(
+                      top: 10,
+                      left: Dimensions.width20,
+                      right: Dimensions.width20,
+                      bottom: 10),
+                  decoration: BoxDecoration(
+                      borderRadius:
+                      BorderRadius.circular(Dimensions.radius15),
+                      color: Colors.grey[300]),
+
+                ),
+                Container(
+                  height: Dimensions.listViewImgSize,
+                  margin: EdgeInsets.only(
+                      top: 10,
+                      left: Dimensions.width20,
+                      right: Dimensions.width20,
+                      bottom: 10),
+                  decoration: BoxDecoration(
+                      borderRadius:
+                      BorderRadius.circular(Dimensions.radius15),
+                      color: Colors.grey[300]),
+
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    } else {
+      return Expanded(
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: ListView.separated(
+            padding: EdgeInsets.only(top: Dimensions.height10),
+            physics: BouncingScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: _imgMain == null ? 0 : _imgMain.length,
+            separatorBuilder: (context, index) => Divider(color: Colors.black26, height: 1, indent: Dimensions.CatdividerInd, endIndent: Dimensions.CatdividerEndInd, thickness: 2),
+            itemBuilder: (context, index) {
+              return Container(
+                margin: EdgeInsets.only(
+                    top: 10,
+                    left: Dimensions.width20,
+                    right: Dimensions.width20,
+                    bottom: 10),
+                child: GestureDetector(
+                  onTap: () {
+                    idItem = _idItem[index]['id'];
+                    imgMain = _imgMain[index]['img_main'];
+                    imgSecond = _imgSecond[index]['img_second'];
+                    name = _nameItem[index]['name_item'];
+                    discription = _discriptionItem[index]['discription_item'];
+                    calories = _caloriesItem[index]['calories_item'];
+                    belki = _belkiItem[index]['belki_item'];
+                    fats = _fatsItem[index]['fats_item'];
+                    carbons = _carbonsItem[index]['carbons_item'];
+                    time = _timeItem[index]['time_item'];
+                    info = _infoItem[index]['info_item'];
+                    price = _priceItem[index]['price_item'];
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ItemDetail(
+                            screen: screen,
+                            idItem: idItem,
+                            imgMain: imgMain,
+                            imgSecond: imgSecond,
+                            name: name,
+                            discription: discription,
+                            calories: calories,
+                            belki: belki,
+                            fats: fats,
+                            carbons: carbons,
+                            time: time,
+                            info: info,
+                            price: price,
+                            sale: '',
+                            id: '',
+                            page: widget.page,
+                            idCategories: widget.idCategories,
+                            nameCategories: widget.nameCategories,
+                          ),
+                        ));
+                  },
+                  child: Row(
+                    children: [
+                      Container(
+                        width: Dimensions.listViewImgSize,
+                        height: Dimensions.listViewImgSize,
+                        decoration: BoxDecoration(
+                            borderRadius:
+                            BorderRadius.circular(Dimensions.radius20),
+                            color: Colors.white38,
+                            image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: NetworkImage(API.loadImagelib +
+                                  _imgMain[index]['img_main']),
+                            )),
+                      ),
+                      Expanded(
+                        child: Container(
+                          height: Dimensions.listViewTextContSize,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                topRight:
+                                Radius.circular(Dimensions.radius20),
+                                bottomRight:
+                                Radius.circular(Dimensions.radius20)),
+                            color: Colors.white,
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                left: Dimensions.width20,
+                                right: Dimensions.width20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  _nameItem[index]['name_item'],
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    fontSize: Dimensions.font18,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                SizedBox(height: Dimensions.height10),
+                                Text(
+                                  _discriptionItem[index]['discription_item'],
+                                  textAlign: TextAlign.start,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    fontSize: Dimensions.font8,
+                                    color: Color(0xFFccc7c5),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: Dimensions.height10,
+                                ),
+                                Row(
+                                  children: [
+                                    Container(
+                                      padding: EdgeInsets.all(5.0),
+                                      decoration: BoxDecoration(
+                                          color: Colors.amber,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10.0))),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            _priceItem[index]['price_item'],
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              fontFamily: 'Roboto',
+                                              fontSize: Dimensions.font18,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                          SizedBox(width: 2),
+                                          Text(
+                                            "₽",
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              fontFamily: 'Roboto',
+                                              fontSize: Dimensions.font12,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      );
+    }
+  }
+
   }

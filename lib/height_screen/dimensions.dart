@@ -16,6 +16,7 @@ class Dimensions {
   static double height20 = screenHeight / 41.75;
   static double height30 = screenHeight / 27.7;
   static double height35 = screenHeight / 23.99;
+  static double height40 = screenHeight / 20;
   static double height45 = screenHeight / 18.56;
 
   static double width10 = screenWedth / 83.5;
@@ -40,8 +41,8 @@ class Dimensions {
   static double iconSize24 = screenHeight / 33;
 
   //list view size (популярные блюда)
-  static double listViewImgSize = screenWedth / 3.25;
-  static double listViewTextContSize = screenHeight / 8.7;
+  static double listViewImgSize = screenHeight / 6.85;
+  static double listViewTextContSize = screenHeight / 8.5;
 
   //list cart
   static double listViewImgSizeCart = screenWedth / 4;
@@ -54,12 +55,14 @@ class Dimensions {
 
   static double buttonfullwidgt = screenWedth / 1.17;
 
-  static double MaindividerInd = screenWedth / 16;
-  static double MaindividerEndInd = screenWedth / 1.415;
+  static double MaindividerInd = screenHeight / 34.5;
+  static double MaindividerEndInd = screenHeight / 3.02;
   static double CatdividerInd = screenWedth / 14;
   static double CatdividerEndInd = screenWedth / 1.4;
   static double CartdividerInd = screenWedth / 11.75;
   static double CartdividerEndInd = screenWedth / 1.35;
+
+  static double pricePadding = screenHeight / 167;
 
   static double CategoriesCartSize = screenWedth / 2.25;
   static double CategoriesImgSize = screenWedth / 4.1;

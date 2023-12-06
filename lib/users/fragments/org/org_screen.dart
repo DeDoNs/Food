@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:regester/height_screen/dimensions.dart';
-import 'package:regester/users/fragments/Main/food_page_body.dart';
 import 'package:regester/users/userPreferences/current_user.dart';
 
 import '../../userPreferences/current_user.dart';
@@ -52,7 +51,7 @@ class OrgScreen extends StatelessWidget {
         children: [
           userInfoItem(_currentUser.user.user_login),
           Expanded(child: SingleChildScrollView(
-            child: FoodPageBody(),
+            child: Column(),
           )),
         ],
       ),

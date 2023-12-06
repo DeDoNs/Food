@@ -54,25 +54,25 @@ class _MenuItemState extends State<MenuItem> {
       body: Column(
         children: [
           Container(
-            margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-            padding: EdgeInsets.only(
-                left: Dimensions.width20, right: Dimensions.width20),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    "Категории",
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: Dimensions.font24,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w700,
-                    ),
+          margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+          padding: EdgeInsets.only(
+              left: Dimensions.width20, right: Dimensions.width20),
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  "Категории",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontFamily: 'Roboto',
+                    fontSize: Dimensions.font24,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w700,
                   ),
-                ]),
-          ),
+                ),
+              ]),
+        ),
           Expanded(
             child: SingleChildScrollView(
               physics: BouncingScrollPhysics(),
