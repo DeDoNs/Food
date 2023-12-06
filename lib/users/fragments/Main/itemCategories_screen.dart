@@ -105,7 +105,7 @@ class _ItemCategoriesState extends State<ItemCategories> {
             children: [
               Container(
                 padding: EdgeInsets.only(
-                  top: Dimensions.height40, bottom: Dimensions.height10
+                  top: MediaQuery.of(context).padding.top*1.8, bottom: Dimensions.height10
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -177,7 +177,7 @@ class _ItemCategoriesState extends State<ItemCategories> {
     if (isLoading==true) {
       return Shimmer(
         child: Container(
-          padding: EdgeInsets.only(top: Dimensions.height40, bottom: Dimensions.height10),
+          padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top*1.9, bottom: Dimensions.height10),
           child: Container(
                 width: 180,
                 height: Dimensions.height30,
@@ -190,7 +190,7 @@ class _ItemCategoriesState extends State<ItemCategories> {
       );
     } else {return Container(
       padding:
-      EdgeInsets.only(top: Dimensions.height40, bottom: Dimensions.height10),
+      EdgeInsets.only(top: MediaQuery.of(context).padding.top*1.8, bottom: Dimensions.height10),
       child: Text(
         widget.nameCategories,
         maxLines: 1,

@@ -183,7 +183,7 @@ class _ShopCartState extends State<ShopCart> {
         backgroundColor: Color(0xFFF5F5F3),
         body: Column(children: [
           Container(
-            margin: EdgeInsets.only(top: Dimensions.height40, bottom: Dimensions.height15),
+            margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top*1.8, bottom: Dimensions.height15),
             padding: EdgeInsets.only(
                 left: Dimensions.width20, right: Dimensions.width20),
             child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [

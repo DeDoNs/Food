@@ -194,7 +194,7 @@ class _MainScreenState extends State<MainScreen> {
     if (isLoading==true) {
       return Shimmer(
         child: Container(
-          margin: EdgeInsets.only(top: Dimensions.height40, bottom: Dimensions.height15),
+          margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top*1.9, bottom: Dimensions.height15),
           padding: EdgeInsets.only(left: Dimensions.width20, right: Dimensions.width20),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -212,7 +212,7 @@ class _MainScreenState extends State<MainScreen> {
         ),
       );
     } else {return Container(
-        margin: EdgeInsets.only(top: Dimensions.height40, bottom: Dimensions.height15),
+        margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top*1.8, bottom: Dimensions.height15),
         padding: EdgeInsets.only(
             left: Dimensions.width20, right: Dimensions.width20),
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
