@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:regester/admin/settingsApp.dart';
 import 'package:regester/height_screen/dimensions.dart';
 import 'package:regester/users/authentication/login_screen.dart';
 import 'package:regester/users/fragments/Main/board.dart';
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
             return LoginScreen();
           }
           else{
-            return MainBoardScreen(page: 0);
+            return SettingsApp(page: 0,);
           }
         },
       ),

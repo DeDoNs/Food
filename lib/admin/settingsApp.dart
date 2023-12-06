@@ -6,16 +6,16 @@ import 'package:regester/api_connection/api_connection.dart';
 import 'package:regester/height_screen/dimensions.dart';
 import 'package:regester/users/fragments/Main/itemCategories_screen.dart';
 
-class MenuItem extends StatefulWidget {
+class SettingsApp extends StatefulWidget {
   final int page;
 
-  const MenuItem({super.key, required this.page});
+  const SettingsApp({super.key, required this.page});
 
   @override
-  State<MenuItem> createState() => _MenuItemState();
+  State<SettingsApp> createState() => _SettingsApp();
 }
 
-class _MenuItemState extends State<MenuItem> {
+class _SettingsApp extends State<SettingsApp> {
   String idCategories = "", nameCategories = "";
 
   var num_rows = 0;
@@ -54,7 +54,7 @@ class _MenuItemState extends State<MenuItem> {
       body: Column(
         children: [
           Container(
-            margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+            margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top*1.8),
             padding: EdgeInsets.only(
                 left: Dimensions.width20, right: Dimensions.width20),
             child: Row(
@@ -157,8 +157,17 @@ class _MenuItemState extends State<MenuItem> {
                                             showDialog<String>(
                                               context: context,
                                               builder: (BuildContext context) => AlertDialog(
-                                                title: const Text('AlertDialog Title'),
-
+                                                title: Text(
+                                                  _nameCategories[index]['name_categories'],
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                    fontFamily: 'Roboto',
+                                                    fontSize: Dimensions.font24,
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                ),
                                                 content: Column(
                                                   children: [
                                                     Expanded(
