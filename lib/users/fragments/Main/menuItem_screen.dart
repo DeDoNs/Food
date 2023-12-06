@@ -74,7 +74,7 @@ class _MenuItemState extends State<MenuItem> {
     if (isLoading==true) {
       return Shimmer(
         child: Container(
-          margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top*1.9),
+          margin: EdgeInsets.only(top: Dimensions.height40),
           padding: EdgeInsets.only(left: Dimensions.width20, right: Dimensions.width20),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,7 +93,7 @@ class _MenuItemState extends State<MenuItem> {
       );
     } else {
       return Container(
-        margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top*1.8),
+        margin: EdgeInsets.only(top: Dimensions.height40),
         padding: EdgeInsets.only(
             left: Dimensions.width20, right: Dimensions.width20),
         child: Row(
