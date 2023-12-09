@@ -9,6 +9,9 @@ import 'package:regester/users/userPreferences/user_preferences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    systemNavigationBarColor: Colors.white,
+  ));
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
   runApp(MyApp(token: 1));
 }

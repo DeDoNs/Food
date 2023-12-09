@@ -323,10 +323,8 @@ class _ShopCartState extends State<ShopCart> {
                               .length,
                           separatorBuilder: (context, index) =>
                               Divider(color: Colors.black26,
-                                  height: 1,
-                                  indent: Dimensions.CartdividerInd,
-                                  endIndent: Dimensions.CartdividerEndInd,
-                                  thickness: 2),
+                                  height: 2,
+                                  thickness: 0.5),
                           itemBuilder: (context, index) {
                             cart = _numberItem[index]['number_item'];
                             cart_all = int.parse(cart);
@@ -610,9 +608,7 @@ class _ShopCartState extends State<ShopCart> {
                           }),
                       Divider(color: Colors.black26,
                           height: 2,
-                          indent: Dimensions.width30,
-                          endIndent: Dimensions.width30,
-                          thickness: 0.2),
+                          thickness: 0.5),
                       SizedBox(height: Dimensions.height10),
                       Container(
                         padding: EdgeInsets.only(

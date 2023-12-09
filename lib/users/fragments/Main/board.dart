@@ -49,17 +49,11 @@ class _MainBoardState extends State<MainBoardScreen> {
       debugShowCheckedModeBanner: false,
       title: 'Bottom navigation bar',
       home: Scaffold(
-        backgroundColor: Color(0xFFFAFAFA),
+        backgroundColor: Colors.white,
         body: Center(
           child: _widgetOptions.elementAt(_currenPage),
         ),
-        bottomNavigationBar: Theme(
-            data: Theme.of(context).copyWith(
-                canvasColor: Colors.white,
-                primaryColor: Colors.red,
-                textTheme: Theme.of(context).textTheme.copyWith(
-                    bodySmall: const TextStyle(color: Colors.yellow))),
-          child: GNav(
+        bottomNavigationBar: GNav(
                 gap: 8,
                 activeColor: Colors.black,
                 iconSize: Dimensions.iconSize24,
@@ -131,7 +125,6 @@ class _MainBoardState extends State<MainBoardScreen> {
                   });
                 },
             )),
-      ),
     );
   }
 }

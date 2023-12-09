@@ -383,7 +383,7 @@ class _MainScreenState extends State<MainScreen> {
                   Container(
                     height: Dimensions.listViewImgSize,
                     margin: EdgeInsets.only(
-                        top: 10,
+                        top: 0,
                         left: Dimensions.width20,
                         right: Dimensions.width20,
                         bottom: 10),
@@ -396,7 +396,7 @@ class _MainScreenState extends State<MainScreen> {
                   Container(
                     height: Dimensions.listViewImgSize,
                     margin: EdgeInsets.only(
-                        top: 10,
+                        top: 0,
                         left: Dimensions.width20,
                         right: Dimensions.width20,
                         bottom: 10),
@@ -409,7 +409,7 @@ class _MainScreenState extends State<MainScreen> {
                   Container(
                     height: Dimensions.listViewImgSize,
                     margin: EdgeInsets.only(
-                        top: 10,
+                        top: 0,
                         left: Dimensions.width20,
                         right: Dimensions.width20,
                         bottom: 10),
@@ -428,16 +428,15 @@ class _MainScreenState extends State<MainScreen> {
       return Expanded(
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
-          child: ListView.separated(
+          child: ListView.builder(
               padding: EdgeInsets.zero,
               physics: BouncingScrollPhysics(),
               shrinkWrap: true,
               itemCount: _imgMain == null ? 0 : _imgMain.length,
-              separatorBuilder: (context, index) => Divider(color: Colors.black26, height: 1, indent: Dimensions.MaindividerInd, endIndent: Dimensions.MaindividerEndInd, thickness: 2),
               itemBuilder: (context, index) {
                 return Container(
                   margin: EdgeInsets.only(
-                      top: 10,
+                      top: 0,
                       left: Dimensions.width20,
                       right: Dimensions.width20,
                       bottom: 10),
