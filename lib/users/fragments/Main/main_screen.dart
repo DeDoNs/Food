@@ -19,25 +19,27 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
 
-  static bool isLoading = true;
+  static bool isLoadingBanner = true;
+  static bool isLoadingList = true;
+  static var Loading = 1;
 
-  var num_rows_dots = 1;
+  static var num_rows_dots = 1;
 
-  List img = [];
+  static List img = [];
 
-  List _idItem = [];
-  List _imgMain = [];
-  List _imgSecond = [];
-  List _nameItem = [];
-  List _discriptionItem = [];
-  List _caloriesItem = [];
-  List _belkiItem = [];
-  List _fatsItem = [];
-  List _carbonsItem = [];
-  List _timeItem = [];
-  List _infoItem = [];
-  List _priceItem = [];
-  List _priceSale = [];
+  static List _idItem = [];
+  static List _imgMain = [];
+  static List _imgSecond = [];
+  static List _nameItem = [];
+  static List _discriptionItem = [];
+  static List _caloriesItem = [];
+  static List _belkiItem = [];
+  static List _fatsItem = [];
+  static List _carbonsItem = [];
+  static List _timeItem = [];
+  static List _infoItem = [];
+  static List _priceItem = [];
+  static List _priceSale = [];
 
   var saleif = 1;
   var screen = 0;
@@ -70,6 +72,7 @@ class _MainScreenState extends State<MainScreen> {
           final data = jsonDecode(res.body);
           num_rows_dots = data['num'];
           img = data['dataImg'];
+          isLoadingBanner = false;
         });
       }
     } catch (e) {
@@ -97,6 +100,7 @@ class _MainScreenState extends State<MainScreen> {
           _infoItem = dataPop['dataInfoItem'];
           _priceItem = dataPop['dataPriceSale']; //запись цены со скидкой, тк меню Акции
           _priceSale = dataPop['dataPriceItem']; //запись цены без скидки
+          isLoadingList = false;
         });
       }
     } catch (e) {
@@ -111,14 +115,12 @@ class _MainScreenState extends State<MainScreen> {
         _currPageValue = pageController.page!;
       });
     });
-    loadInfoOffer();
-    loadPopItem();
+    if(Loading==1){
+      Loading=0;
+      loadInfoOffer();
+      loadPopItem();
+    }
     super.initState();
-    Future.delayed(Duration(seconds: 1), () {
-      setState(() {
-        isLoading = false;
-      });
-    });
   }
 
   @override
@@ -191,11 +193,11 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   Widget _buildMainText() {
-    if (isLoading==true) {
+    if (isLoadingBanner == true && isLoadingList == true) {
       return Shimmer(
         child: Container(
-          margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top*1.9, bottom: Dimensions.height15),
-          padding: EdgeInsets.only(left: Dimensions.width20, right: Dimensions.width20),
+          margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top*1.22, bottom: Dimensions.height15),
+          padding: EdgeInsets.only(left: Dimensions.width15, right: Dimensions.width20),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -212,7 +214,7 @@ class _MainScreenState extends State<MainScreen> {
         ),
       );
     } else {return Container(
-        margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top*1.8, bottom: Dimensions.height15),
+        margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top*1.18, bottom: Dimensions.height15),
         padding: EdgeInsets.only(
             left: Dimensions.width20, right: Dimensions.width20),
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
@@ -232,7 +234,7 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   Widget _buildBanner() {
-    if (isLoading==true) {
+    if (isLoadingBanner == true && isLoadingList == true) {
       return Shimmer(
         child: Column(
           children: [
@@ -249,7 +251,7 @@ class _MainScreenState extends State<MainScreen> {
         ),
       );
     } else {return SingleChildScrollView(
-        physics: isLoading ? const AlwaysScrollableScrollPhysics() : null,
+        physics: AlwaysScrollableScrollPhysics(),
         child: Column(
           children: [
             Container(
@@ -268,7 +270,7 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   Widget _buildDotsIndicator() {
-    if (isLoading==true) {
+    if (isLoadingBanner == true && isLoadingList == true) {
       return Shimmer(
         child: Column(
           children: [
@@ -281,7 +283,6 @@ class _MainScreenState extends State<MainScreen> {
                   width: 45,
                   height: Dimensions.height15,
                   decoration: BoxDecoration(
-                    color: Colors.grey[300],
                     borderRadius: BorderRadius.circular(16),
                   ),
                 ),
@@ -310,7 +311,7 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   Widget _buildFirstText() {
-    if (isLoading==true) {
+    if (isLoadingBanner == true && isLoadingList == true) {
       return Shimmer(
         child: Column(
           children: [
@@ -372,7 +373,7 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   Widget _buildListView() {
-    if (isLoading==true) {
+    if (isLoadingBanner == true && isLoadingList == true) {
       return Expanded(
           child: Shimmer(
             child: SingleChildScrollView(
@@ -426,7 +427,7 @@ class _MainScreenState extends State<MainScreen> {
     } else {
       return Expanded(
         child: SingleChildScrollView(
-          physics: isLoading ? const BouncingScrollPhysics() : null,
+          physics: BouncingScrollPhysics(),
           child: ListView.separated(
               padding: EdgeInsets.zero,
               physics: BouncingScrollPhysics(),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:regester/height_screen/dimensions.dart';
 import 'package:regester/users/authentication/signup_screen.dart';
 import 'package:regester/users/fragments/Main/board.dart';
 import 'package:regester/users/fragments/mainboard_screen.dart';
@@ -47,7 +48,6 @@ class _LoginScreenState extends State<LoginScreen> {
           User userInfo = User.fromJson(resBodyLogin['userData']);// запись полных данных пользователя в User.dart
           await RememberUserPrefs.saveUserInfo(userInfo);
           saveLogin();
-          Fluttertoast.showToast(msg: "Авторизация прошла успешно.");
           loadLogin();
           Future.delayed(Duration(milliseconds: 2000), () {
             Get.to(MainBoardScreen(page: 0));
@@ -55,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
         } else {
           Fluttertoast.showToast(msg: "Введены некорректные данные.");
         }
-      }
+      }else{print(res.statusCode);}
     } catch (e) {
       print(e.toString());
     }
@@ -78,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xFFF5F5F3),
       body: LayoutBuilder(
         builder: (context, cons) {
           return ConstrainedBox(
@@ -92,11 +92,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   // login screen
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(30, 200, 30, 30),
+                    padding: EdgeInsets.only(left: 30, right: 30, top: Dimensions.screenHeight/4),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
-
                       children: [
                         // login-password + login button
                         Align(
@@ -125,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 decoration: InputDecoration(
                                   prefixIcon: const Icon(
                                     Icons.account_circle,
-                                    color: Colors.black,
+                                    color: Colors.amber,
                                   ),
                                   hintText: "Логин",
                                   border: OutlineInputBorder(
@@ -176,8 +175,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                       : null,
                                   decoration: InputDecoration(
                                     prefixIcon: const Icon(
-                                      Icons.vpn_key_sharp,
-                                      color: Colors.black,
+                                      Icons.password,
+                                      color: Colors.amber,
                                     ),
                                     suffixIcon: Obx(
                                           () => GestureDetector(

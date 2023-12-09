@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'main.dart';
 
@@ -24,18 +25,29 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+
+  String dataLogin="";
+  static var tokenLogin=0;
+
   @override
   void initState() {
+    loadLogin();
     super.initState();
     _navigateToNextScreen();
   }
 
+  loadLogin() async{
+    SharedPreferences pre = await SharedPreferences.getInstance();
+    dataLogin = pre.getString("user_login") ?? "";
+  }
+
   //Переход на следующий экран через 2 секунды
   Future<void> _navigateToNextScreen() async {
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: 3));
+    if(dataLogin!=""){tokenLogin=1;}
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => MyApp()),
+      MaterialPageRoute(builder: (context) => MyApp(token: tokenLogin)),
     );
   }
 

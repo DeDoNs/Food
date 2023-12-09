@@ -55,8 +55,8 @@ class Dimensions {
 
   static double buttonfullwidgt = screenWedth / 1.17;
 
-  static double MaindividerInd = screenHeight / 34.5;
-  static double MaindividerEndInd = screenHeight / 3.02;
+  static double MaindividerInd = listViewImgSize / 5.4;
+  static double MaindividerEndInd = listViewImgSize * 2.26;
   static double CatdividerInd = screenWedth / 14;
   static double CatdividerEndInd = screenWedth / 1.4;
   static double CartdividerInd = screenWedth / 11.75;

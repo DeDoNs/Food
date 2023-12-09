@@ -78,6 +78,7 @@ class _ShopCartState extends State<ShopCart> {
           _numberItem = data['dataNumberItem'];
           _priceOne = data['dataPriceOne'];
           _priceFull = data['dataPriceFull'];
+          _isLoading = false;
         });
       }
     } catch (e) {
@@ -164,16 +165,6 @@ class _ShopCartState extends State<ShopCart> {
     sumload();
     loadItem();
     super.initState();
-    Timer(Duration(seconds: 1), () {
-      setState(() {
-        _isLoading = false;
-      });
-    });
-    Future.delayed(Duration(seconds: 1), () {
-      setState(() {
-        _isLoading = false;
-      });
-    });
   }
 
   @override
@@ -183,9 +174,8 @@ class _ShopCartState extends State<ShopCart> {
         backgroundColor: Color(0xFFF5F5F3),
         body: Column(children: [
           Container(
-            margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top*1.8, bottom: Dimensions.height15),
             padding: EdgeInsets.only(
-                left: Dimensions.width20, right: Dimensions.width20),
+                left: Dimensions.width20, right: Dimensions.width20, top: MediaQuery.of(context).padding.top*1.18),
             child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
               Text(
                 "Корзина",
@@ -200,12 +190,6 @@ class _ShopCartState extends State<ShopCart> {
               ),
             ]),
           ),
-          Container(
-            padding: EdgeInsets.only(top: Dimensions.screenHeight / 3),
-            child: JumpingDotsProgressIndicator(
-              fontSize: 50.0,
-            ),
-          )
         ],),
       );}
     else {
@@ -214,9 +198,8 @@ class _ShopCartState extends State<ShopCart> {
           backgroundColor: Color(0xFFF5F5F3),
           body: Column(children: [
             Container(
-              margin: EdgeInsets.only(top: Dimensions.height40, bottom: Dimensions.height15),
               padding: EdgeInsets.only(
-                  left: Dimensions.width20, right: Dimensions.width20),
+                  left: Dimensions.width20, right: Dimensions.width20, top: MediaQuery.of(context).padding.top*1.18, bottom: Dimensions.height15),
               child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                 Text(
                   "Корзина",
@@ -309,7 +292,7 @@ class _ShopCartState extends State<ShopCart> {
             backgroundColor: Color(0xFFF5F5F3),
             body: Column(children: [
               Container(
-                margin: EdgeInsets.only(top: Dimensions.height40, bottom: Dimensions.height15),
+                margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top*1.18, bottom: Dimensions.height15),
                 padding: EdgeInsets.only(
                     left: Dimensions.width20, right: Dimensions.width20),
                 child: Row(
@@ -626,7 +609,7 @@ class _ShopCartState extends State<ShopCart> {
                             );
                           }),
                       Divider(color: Colors.black26,
-                          height: 1,
+                          height: 2,
                           indent: Dimensions.width30,
                           endIndent: Dimensions.width30,
                           thickness: 0.2),
@@ -704,7 +687,7 @@ class _ShopCartState extends State<ShopCart> {
               Column(
                 children: [
                   Container(
-                    padding: EdgeInsets.all(10),
+                    padding: EdgeInsets.all(16),
                     child: Container(
                       width: Dimensions.buttonfullwidgt,
                       height: Dimensions.height45,

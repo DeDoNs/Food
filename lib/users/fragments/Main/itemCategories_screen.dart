@@ -24,7 +24,7 @@ class ItemCategories extends StatefulWidget {
 
 class _ItemCategoriesState extends State<ItemCategories> {
 
-  bool isLoading = true;
+  bool isLoadingList = true;
 
   List _idItem = [];
   List _imgMain = [];
@@ -78,6 +78,7 @@ class _ItemCategoriesState extends State<ItemCategories> {
           _timeItem = data['dataTimeItem'];
           _infoItem = data['dataInfoItem'];
           _priceItem = data['dataPriceItem'];
+          isLoadingList = false;
         });
       }
     } catch (e) {
@@ -89,11 +90,6 @@ class _ItemCategoriesState extends State<ItemCategories> {
   void initState() {
     loadItemCategories();
     super.initState();
-    Future.delayed(Duration(seconds: 1), () {
-      setState(() {
-        isLoading = false;
-      });
-    });
   }
 
   @override
@@ -105,7 +101,7 @@ class _ItemCategoriesState extends State<ItemCategories> {
             children: [
               Container(
                 padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).padding.top*1.8, bottom: Dimensions.height10
+                  top: MediaQuery.of(context).padding.top*1.1, bottom: Dimensions.height10
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -174,10 +170,10 @@ class _ItemCategoriesState extends State<ItemCategories> {
     );}
 
   Widget _buildMainText() {
-    if (isLoading==true) {
+    if (isLoadingList==true) {
       return Shimmer(
         child: Container(
-          padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top*1.9, bottom: Dimensions.height10),
+          padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top*1.1, bottom: Dimensions.height10),
           child: Container(
                 width: 180,
                 height: Dimensions.height30,
@@ -190,7 +186,7 @@ class _ItemCategoriesState extends State<ItemCategories> {
       );
     } else {return Container(
       padding:
-      EdgeInsets.only(top: MediaQuery.of(context).padding.top*1.8, bottom: Dimensions.height10),
+      EdgeInsets.only(top: MediaQuery.of(context).padding.top*1.1, bottom: Dimensions.height10, left: Dimensions.width10),
       child: Text(
         widget.nameCategories,
         maxLines: 1,
@@ -207,7 +203,7 @@ class _ItemCategoriesState extends State<ItemCategories> {
   }
 
   Widget _buildListView() {
-    if (isLoading==true) {
+    if (isLoadingList==true) {
       return Expanded(
         child: Shimmer(
           child: SingleChildScrollView(

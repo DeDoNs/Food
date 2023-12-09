@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:regester/api_connection/api_connection.dart';
 import 'package:regester/height_screen/dimensions.dart';
 import 'package:regester/users/fragments/Main/itemCategories_screen.dart';
+import 'package:regester/users/fragments/Main/qrScanner_screen.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 
 class MenuItem extends StatefulWidget {
@@ -18,14 +19,15 @@ class MenuItem extends StatefulWidget {
 
 class _MenuItemState extends State<MenuItem> {
 
-  static bool isLoading = true;
+  static bool isLoadingList = true;
+  static var Loading = 1;
 
   String idCategories = "", nameCategories = "";
 
-  var num_rows = 0;
-  List _idCategories = [];
-  List _nameCategories = [];
-  List _imgCategories = [];
+  static var num_rows = 0;
+  static List _idCategories = [];
+  static List _nameCategories = [];
+  static List _imgCategories = [];
 
   Future loadCategories() async {
     try {
@@ -38,6 +40,7 @@ class _MenuItemState extends State<MenuItem> {
           _idCategories = data['dataIdCategories'];
           _nameCategories = data['dataNameCategories'];
           _imgCategories = data['dataImgCategories'];
+          isLoadingList = false;
         });
       }
     } catch (e) {
@@ -47,13 +50,10 @@ class _MenuItemState extends State<MenuItem> {
 
   @override
   void initState() {
-    loadCategories();
+    if(Loading==1){
+      Loading=0;
+      loadCategories();}
     super.initState();
-    Future.delayed(Duration(seconds: 1), () {
-      setState(() {
-        isLoading = false;
-      });
-    });
   }
 
   @override
@@ -71,11 +71,11 @@ class _MenuItemState extends State<MenuItem> {
   }
 
   Widget _buildMainText() {
-    if (isLoading==true) {
+    if (isLoadingList==true) {
       return Shimmer(
         child: Container(
-          margin: EdgeInsets.only(top: Dimensions.height40),
-          padding: EdgeInsets.only(left: Dimensions.width20, right: Dimensions.width20),
+          margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top*1.25),
+          padding: EdgeInsets.only(left: Dimensions.width15, right: Dimensions.width20),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -93,11 +93,11 @@ class _MenuItemState extends State<MenuItem> {
       );
     } else {
       return Container(
-        margin: EdgeInsets.only(top: Dimensions.height40),
+        margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
         padding: EdgeInsets.only(
             left: Dimensions.width20, right: Dimensions.width20),
         child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 "Категории",
@@ -110,12 +110,19 @@ class _MenuItemState extends State<MenuItem> {
                   fontWeight: FontWeight.w700,
                 ),
               ),
+              IconButton(onPressed: (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                    builder: (context) => qrScanner()));
+              },
+                icon: Icon(Icons.qr_code_scanner,), splashRadius: 24,)
             ]),
       );}
   }
 
   Widget _buildListCategories() {
-    if (isLoading==true) {
+    if (isLoadingList==true) {
       return Expanded(
         child: Shimmer(
           child: SingleChildScrollView(
@@ -123,7 +130,7 @@ class _MenuItemState extends State<MenuItem> {
             child: Column(
               children: [
                 GridView.builder(
-                  padding: EdgeInsets.only(top: Dimensions.height15, left: Dimensions.width10, right:  Dimensions.width10),
+                  padding: EdgeInsets.only(top: Dimensions.height20, left: Dimensions.width10, right:  Dimensions.width10),
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
@@ -155,7 +162,7 @@ class _MenuItemState extends State<MenuItem> {
         child: Column(
           children: [
             GridView.builder(
-              padding: EdgeInsets.only(top: Dimensions.height15, left: Dimensions.width10, right:  Dimensions.width10),
+              padding: EdgeInsets.only(top: Dimensions.height10, left: Dimensions.width10, right:  Dimensions.width10),
               shrinkWrap: true,
               physics: BouncingScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dropdown_alert/dropdown_alert.dart';
 import 'package:get/get.dart';
-import 'package:regester/admin/settingsApp.dart';
 import 'package:regester/height_screen/dimensions.dart';
 import 'package:regester/users/authentication/login_screen.dart';
 import 'package:regester/users/fragments/Main/board.dart';
@@ -10,11 +10,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
-  runApp(MyApp());
+  runApp(MyApp(token: 1));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final int token;
+  const MyApp({super.key, required this.token});
 
   // This widget is the root of your application.
   @override
@@ -30,13 +31,21 @@ class MyApp extends StatelessWidget {
         future: RememberUserPrefs.readUserInfo(),
         builder: (context, dataSnapShot)
         {
-          if (dataSnapShot.data == null){
+          if (token==0){
             return LoginScreen();
           }
           else{
-            return SettingsApp(page: 0,);
+            return MainBoardScreen(page: 0);
           }
         },
+      ),
+      builder: (context, child) => Stack(
+        children: [
+          child!,
+          DropdownAlert(
+            position: AlertPosition.BOTTOM,
+          )
+        ],
       ),
     );
   }

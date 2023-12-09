@@ -64,7 +64,7 @@ class _ItemDetailState extends State<ItemDetail> {
   loadLogin() async{
     SharedPreferences pre = await SharedPreferences.getInstance();
     dataLogin = pre.getString("user_login") ?? "";
-    print(dataLogin);}
+  }
 
   saveCart() async{
     int price = int.parse(widget.price);

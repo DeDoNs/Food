@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:regester/api_connection/api_connection.dart';
+import 'package:regester/height_screen/dimensions.dart';
 import 'package:regester/users/authentication/login_screen.dart';
 import 'package:regester/users/model/user.dart';
 
@@ -99,17 +100,14 @@ class _SignupScreenState extends State<SignupScreen> {
         var resBodyReg = jsonDecode(res.body);
 
         if(resBodyReg['success'] == true){
-          Fluttertoast.showToast(msg: "Пользователь успешно зарегистрирован.");
           Get.to(LoginScreen());
         }
         else{
-          Fluttertoast.showToast(msg: "Произошла ошибка, попробуйте снова.");
         }
         }
     }
     catch(e){
       print(e.toString());
-      Fluttertoast.showToast(msg: e.toString());
     }
   }
 
@@ -131,7 +129,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   // signup screen
 
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(30, 200, 30, 30),
+                    padding: EdgeInsets.only(left: 30, right: 30, top: Dimensions.screenHeight/5),
                     child: Column(
                       children: [
                         Align(
@@ -159,7 +157,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 decoration: InputDecoration(
                                   prefixIcon: const Icon(
                                     Icons.email,
-                                    color: Colors.black,
+                                    color: Colors.amber,
                                   ),
                                   hintText: "Email",
                                   border: OutlineInputBorder(
@@ -204,7 +202,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 decoration: InputDecoration(
                                   prefixIcon: const Icon(
                                     Icons.account_circle,
-                                    color: Colors.black,
+                                    color: Colors.amber,
                                   ),
                                   hintText: "Логин",
                                   border: OutlineInputBorder(
@@ -250,8 +248,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                   validator: (val) => val == "" ? "Пожалуйста введите пароль": null,
                                   decoration: InputDecoration(
                                     prefixIcon: const Icon(
-                                      Icons.vpn_key_sharp,
-                                      color: Colors.black,
+                                      Icons.password,
+                                      color: Colors.amber,
                                     ),
                                     suffixIcon: Obx(
                                           ()=> GestureDetector(
@@ -261,7 +259,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                         },
                                         child: Icon(
                                           isObsecure.value ? Icons.visibility_off : Icons.visibility,
-                                          color: Colors.black,
+                                          color: Colors.amber,
                                         ),
                                       ),
                                     ),
