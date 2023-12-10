@@ -12,7 +12,6 @@ void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     systemNavigationBarColor: Colors.white,
   ));
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
   runApp(MyApp(token: 1));
 }
 
@@ -27,7 +26,7 @@ class MyApp extends StatelessWidget {
       title: 'Food app',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
         useMaterial3: true,
       ),
       home: FutureBuilder(

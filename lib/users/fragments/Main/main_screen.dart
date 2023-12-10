@@ -126,9 +126,23 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Text(
+          "Добрый день!",
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(
+            fontFamily: 'Roboto',
+            fontSize: Dimensions.font24,
+            color: Colors.black,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        elevation: 0,
+      ),
       backgroundColor: Color(0xFFF5F5F3),
       body: Column(children: [
-        _buildMainText(),
         _buildBanner(),
         _buildDotsIndicator(),
         _buildFirstText(),
@@ -192,54 +206,13 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
-  Widget _buildMainText() {
-    if (isLoadingBanner == true && isLoadingList == true) {
-      return Shimmer(
-        child: Container(
-          margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top*1.22, bottom: Dimensions.height15),
-          padding: EdgeInsets.only(left: Dimensions.width15, right: Dimensions.width20),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: 170,
-                height: Dimensions.height30,
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(16),
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-    } else {return Container(
-        margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top*1.18, bottom: Dimensions.height15),
-        padding: EdgeInsets.only(
-            left: Dimensions.width20, right: Dimensions.width20),
-        child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-          Text(
-            "Добрый день!",
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              fontFamily: 'Roboto',
-              fontSize: Dimensions.font24,
-              color: Colors.black,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-        ]),
-      );}
-  }
-
   Widget _buildBanner() {
     if (isLoadingBanner == true && isLoadingList == true) {
       return Shimmer(
         child: Column(
           children: [
             Container(
-              margin: EdgeInsets.only(left: 30, right: 30),
+              margin: EdgeInsets.only(left: 30, right: 30, top: 20),
               height: Dimensions.pageViewContainer,
               decoration: BoxDecoration(
                 color: Colors.grey[300],
@@ -255,6 +228,7 @@ class _MainScreenState extends State<MainScreen> {
         child: Column(
           children: [
             Container(
+              margin: EdgeInsets.only(top: 20),
               height: Dimensions.pageViewContainer,
               child: PageView.builder(
                   controller: pageController,
@@ -489,7 +463,10 @@ class _MainScreenState extends State<MainScreen> {
                             child: Padding(
                               padding: EdgeInsets.only(
                                   left: Dimensions.width20,
-                                  right: Dimensions.width20),
+                                  right: Dimensions.width20,
+                                  top: 5,
+                                  bottom: 5
+                              ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,

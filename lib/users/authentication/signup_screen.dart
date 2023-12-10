@@ -115,19 +115,10 @@ class _SignupScreenState extends State<SignupScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: LayoutBuilder(
-        builder: (context, cons)
-        {
-          return ConstrainedBox(
-            constraints: BoxConstraints(
-              minHeight: cons.maxHeight,
-            ),
-            child: SingleChildScrollView(
+      body: SingleChildScrollView(
+              physics: NeverScrollableScrollPhysics(),
               child: Column(
                 children: [
-
-                  // signup screen
-
                   Padding(
                     padding: EdgeInsets.only(left: 30, right: 30, top: Dimensions.screenHeight/5),
                     child: Column(
@@ -259,7 +250,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                         },
                                         child: Icon(
                                           isObsecure.value ? Icons.visibility_off : Icons.visibility,
-                                          color: Colors.amber,
+                                          color: Colors.black,
                                         ),
                                       ),
                                     ),
@@ -368,15 +359,9 @@ class _SignupScreenState extends State<SignupScreen> {
                       ],
                     ),
                   ),
-
-
-
                 ],
               ),
             ),
           );
-        },
-      ),
-    );
   }
 }

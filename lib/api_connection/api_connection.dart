@@ -18,6 +18,7 @@ class API
   static const updateNumber = "$hostConnect/user/updateNumber.php";
   static const deleteCart = "$hostConnect/user/deleteCart.php";
   static const updatePrice = "$hostConnect/user/updatePrice.php";
+  static const searchItem = "$hostConnect/user/search_item.php";
 
   static const sumLoad = "$hostConnect/user/sum.php";
   static const loadImagelib = "http://192.168.0.118/api_food/images/";

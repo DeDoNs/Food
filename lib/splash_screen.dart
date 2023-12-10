@@ -5,7 +5,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'main.dart';
 
 void main() {
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    systemNavigationBarColor: Colors.white,
+    statusBarColor: Colors.transparent,
+    statusBarIconBrightness: Brightness.dark
+  ));
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   runApp(bg());
 }
 

@@ -95,51 +95,32 @@ class _ItemCategoriesState extends State<ItemCategories> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar:
+      AppBar(
+        backgroundColor: Colors.white,
+        title: Text(
+          widget.nameCategories,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(
+            fontFamily: 'Roboto',
+            fontSize: Dimensions.font24,
+            color: Colors.black,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        leading: IconButton(onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    MainBoardScreen(page: 1),
+              ));
+        }, icon: Icon(Icons.arrow_back_ios_sharp, color: Colors.black), splashRadius: 20,),
+        elevation: 0,
+      ),
       backgroundColor: Color(0xFFF5F5F3),
       body: Column(children: [
-          Row(
-            children: [
-              Container(
-                padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).padding.top*1.1, bottom: Dimensions.height10
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    RawMaterialButton(
-                      highlightColor: Colors.transparent,
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  MainBoardScreen(page: 1),
-                            ));
-                      },
-                      child: Container(
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          boxShadow: [BoxShadow(spreadRadius: 2, color: Colors.grey.withOpacity(0.2), blurRadius: 10, offset: Offset(0,3))],
-                          color: Colors.white,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.arrow_back_ios_sharp,
-                              color: Colors.black,
-                              size: Dimensions.iconSize24,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              _buildMainText()
-        ]),
         _buildListView(),
       ]),
       floatingActionButton: Container(
@@ -169,45 +150,12 @@ class _ItemCategoriesState extends State<ItemCategories> {
       ),
     );}
 
-  Widget _buildMainText() {
-    if (isLoadingList==true) {
-      return Shimmer(
-        child: Container(
-          padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top*1.1, bottom: Dimensions.height10),
-          child: Container(
-                width: 180,
-                height: Dimensions.height30,
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(16),
-                ),
-              ),
-        ),
-      );
-    } else {return Container(
-      padding:
-      EdgeInsets.only(top: MediaQuery.of(context).padding.top*1.1, bottom: Dimensions.height10, left: Dimensions.width10),
-      child: Text(
-        widget.nameCategories,
-        maxLines: 1,
-        textAlign: TextAlign.center,
-        overflow: TextOverflow.ellipsis,
-        style: TextStyle(
-          fontFamily: 'Roboto',
-          fontSize: Dimensions.font24,
-          color: Colors.black,
-          fontWeight: FontWeight.w700,
-        ),
-      ),
-    );}
-  }
-
   Widget _buildListView() {
     if (isLoadingList==true) {
       return Expanded(
         child: Shimmer(
           child: SingleChildScrollView(
-            padding: EdgeInsets.only(top: Dimensions.height10),
+            padding: EdgeInsets.only(top: 20),
             physics: NeverScrollableScrollPhysics(),
             child: Column(
               children: [
@@ -260,7 +208,7 @@ class _ItemCategoriesState extends State<ItemCategories> {
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: ListView.builder(
-            padding: EdgeInsets.only(top: Dimensions.height10),
+            padding: EdgeInsets.only(top: 20),
             physics: BouncingScrollPhysics(),
             shrinkWrap: true,
             itemCount: _imgMain == null ? 0 : _imgMain.length,
@@ -339,7 +287,10 @@ class _ItemCategoriesState extends State<ItemCategories> {
                           child: Padding(
                             padding: EdgeInsets.only(
                                 left: Dimensions.width20,
-                                right: Dimensions.width20),
+                                right: Dimensions.width20,
+                                top: 5,
+                                bottom: 5
+                            ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -355,7 +306,7 @@ class _ItemCategoriesState extends State<ItemCategories> {
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
-                                SizedBox(height: Dimensions.height10),
+                                SizedBox(height: 8),
                                 Text(
                                   _discriptionItem[index]['discription_item'],
                                   textAlign: TextAlign.start,
@@ -367,13 +318,11 @@ class _ItemCategoriesState extends State<ItemCategories> {
                                     color: Color(0xFFccc7c5),
                                   ),
                                 ),
-                                SizedBox(
-                                  height: Dimensions.height10,
-                                ),
+                                SizedBox(height: 8),
                                 Row(
                                   children: [
                                     Container(
-                                      padding: EdgeInsets.all(5.0),
+                                      padding: EdgeInsets.all(Dimensions.pricePadding),
                                       decoration: BoxDecoration(
                                           color: Colors.amber,
                                           borderRadius: BorderRadius.all(

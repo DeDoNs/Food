@@ -53,15 +53,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF5F5F3),
-      body: Column(children: [
-        Container(
-          margin: EdgeInsets.only(
-            top: MediaQuery.of(context).padding.top*1.18,
-          ),
-          padding: EdgeInsets.only(
-              left: Dimensions.width20, right: Dimensions.width20),
-          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
             Text(
               "Профиль",
               maxLines: 1,
@@ -73,8 +69,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 fontWeight: FontWeight.w700,
               ),
             ),
-          ]),
+          ],
         ),
+        elevation: 0,
+      ),
+      backgroundColor: Color(0xFFF5F5F3),
+      body: Column(children: [
         SizedBox(height: Dimensions.height10),
         Container(
           height: 120,
