@@ -306,7 +306,7 @@ class _ItemCategoriesState extends State<ItemCategories> {
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
-                                SizedBox(height: 8),
+                                SizedBox(height: Dimensions.height10),
                                 Text(
                                   _discriptionItem[index]['discription_item'],
                                   textAlign: TextAlign.start,
@@ -318,7 +318,7 @@ class _ItemCategoriesState extends State<ItemCategories> {
                                     color: Color(0xFFccc7c5),
                                   ),
                                 ),
-                                SizedBox(height: 8),
+                                SizedBox(height: Dimensions.height10),
                                 Row(
                                   children: [
                                     Container(

@@ -28,6 +28,7 @@ class _MenuItemState extends State<MenuItem> {
   late StreamSubscription<bool> _keyboardVisibilitySubscription;
   final KeyboardVisibilityController _keyboardVisibilityController = KeyboardVisibilityController();
   var complete=0;
+  bool noSearch = false;
 
   static bool isLoadingList = true;
   static var Loading = 1;
@@ -39,6 +40,7 @@ class _MenuItemState extends State<MenuItem> {
   static List _nameCategories = [];
   static List _imgCategories = [];
 
+  var num_rows_search=0;
   List _idItem = [];
   List _imgMain = [];
   List _imgSecond = [];
@@ -98,6 +100,7 @@ class _MenuItemState extends State<MenuItem> {
       if (res.statusCode == 200) {
         setState(() {
           final data = jsonDecode(res.body);
+          num_rows_search = data['num'];
           _idItem = data['dataIdItem'];
           _imgMain = data['dataImgMainItem'];
           _imgSecond = data['dataImgSecondItem'];
@@ -110,6 +113,27 @@ class _MenuItemState extends State<MenuItem> {
           _timeItem = data['dataTimeItem'];
           _infoItem = data['dataInfoItem'];
           _priceItem = data['dataPriceItem'];
+          if(num_rows_search==0){
+            setState(() {
+              noSearch = true;
+              _idItem = [];
+              _imgMain = [];
+              _imgSecond = [];
+              _nameItem = [];
+              _discriptionItem = [];
+              _caloriesItem = [];
+              _belkiItem = [];
+              _fatsItem = [];
+              _carbonsItem = [];
+              _timeItem = [];
+              _infoItem = [];
+              _priceItem = [];
+            });
+          }else{
+            setState(() {
+              noSearch = false;
+            });
+          }
         });
       }
     } catch (e) {
@@ -242,6 +266,7 @@ class _MenuItemState extends State<MenuItem> {
                       ),
                     ),
                     searchController.text.trim()!="" ? IconButton(onPressed: (){
+                      FocusManager.instance.primaryFocus?.unfocus();
                       setState(() {
                         searchController.clear();
                         complete=0;
@@ -314,174 +339,209 @@ class _MenuItemState extends State<MenuItem> {
       );
     } else {
       if(isTextFromField){
-        return Expanded(
-          child: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-            child: ListView.builder(
-              padding: EdgeInsets.only(top: 20),
-              physics: BouncingScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: _imgMain == null ? 0 : _imgMain.length,
-              itemBuilder: (context, index) {
-                return Container(
-                  margin: EdgeInsets.only(
-                      top: 0,
-                      left: Dimensions.width20,
-                      right: Dimensions.width20,
-                      bottom: 10),
-                  child: GestureDetector(
-                    onTap: () {
-                      idItem = _idItem[index]['id'];
-                      imgMain = _imgMain[index]['img_main'];
-                      imgSecond = _imgSecond[index]['img_second'];
-                      name = _nameItem[index]['name_item'];
-                      discription = _discriptionItem[index]['discription_item'];
-                      calories = _caloriesItem[index]['calories_item'];
-                      belki = _belkiItem[index]['belki_item'];
-                      fats = _fatsItem[index]['fats_item'];
-                      carbons = _carbonsItem[index]['carbons_item'];
-                      time = _timeItem[index]['time_item'];
-                      info = _infoItem[index]['info_item'];
-                      price = _priceItem[index]['price_item'];
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ItemDetail(
-                              screen: screen,
-                              idItem: idItem,
-                              imgMain: imgMain,
-                              imgSecond: imgSecond,
-                              name: name,
-                              discription: discription,
-                              calories: calories,
-                              belki: belki,
-                              fats: fats,
-                              carbons: carbons,
-                              time: time,
-                              info: info,
-                              price: price,
-                              sale: '',
-                              id: '',
-                              page: widget.page,
-                              idCategories: "",
-                              nameCategories: "",
-                            ),
-                          ));
-                    },
-                    child: Row(
+        if(noSearch){
+          return Expanded(
+            child: Center(
+              child: SingleChildScrollView(
+                physics: NeverScrollableScrollPhysics(),
+                  child: Container(
+                    padding: EdgeInsets.only(left: Dimensions.width40, right: Dimensions.width40),
+                    child: Column(
                       children: [
                         Container(
-                          width: Dimensions.listViewImgSize,
-                          height: Dimensions.listViewImgSize,
-                          decoration: BoxDecoration(
-                              borderRadius:
-                              BorderRadius.circular(Dimensions.radius20),
-                              color: Colors.white38,
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: NetworkImage(API.loadImagelib +
-                                    _imgMain[index]['img_main']),
-                              )),
+                            width: Dimensions.ImgNoSearch,
+                            height: Dimensions.ImgNoSearch,
+                            child: Image.asset("images/icon_nosearch.png", fit: BoxFit.cover,)
                         ),
-                        Expanded(
-                          child: Container(
-                            height: Dimensions.listViewTextContSize,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                  topRight:
-                                  Radius.circular(Dimensions.radius20),
-                                  bottomRight:
-                                  Radius.circular(Dimensions.radius20)),
-                              color: Colors.white,
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                  left: Dimensions.width20,
-                                  right: Dimensions.width20,
-                                  top: 5,
-                                  bottom: 5
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    _nameItem[index]['name_item'],
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      fontFamily: 'Roboto',
-                                      fontSize: Dimensions.font18,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                  SizedBox(height: 8),
-                                  Text(
-                                    _discriptionItem[index]['discription_item'],
-                                    textAlign: TextAlign.start,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      fontFamily: 'Roboto',
-                                      fontSize: Dimensions.font8,
-                                      color: Color(0xFFccc7c5),
-                                    ),
-                                  ),
-                                  SizedBox(height: 8),
-                                  Row(
-                                    children: [
-                                      Container(
-                                        padding: EdgeInsets.all(Dimensions.pricePadding),
-                                        decoration: BoxDecoration(
-                                            color: Colors.amber,
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(10.0))),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              _priceItem[index]['price_item'],
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                fontFamily: 'Roboto',
-                                                fontSize: Dimensions.font18,
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.w700,
-                                              ),
-                                            ),
-                                            SizedBox(width: 2),
-                                            Text(
-                                              "₽",
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                fontFamily: 'Roboto',
-                                                fontSize: Dimensions.font12,
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.w700,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
+                        SizedBox(height: Dimensions.height15,),
+                        Text(
+                          "Хорошая попытка! Но такого нигде нет. Попробуете изменить запрос?",
+                          maxLines: 3,
+                          textAlign: TextAlign.center,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: Dimensions.font18,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500,
                           ),
-                        )
+                        ),
                       ],
-                    ),
                   ),
-                );
-              },
+                ),
+              ),
             ),
-          ),
-        );
+          );
+        }else{
+          return Expanded(
+            child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: ListView.builder(
+                padding: EdgeInsets.only(top: 20),
+                physics: BouncingScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: _imgMain == null ? 0 : _imgMain.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    margin: EdgeInsets.only(
+                        top: 0,
+                        left: Dimensions.width20,
+                        right: Dimensions.width20,
+                        bottom: 10),
+                    child: GestureDetector(
+                      onTap: () {
+                        idItem = _idItem[index]['id'];
+                        imgMain = _imgMain[index]['img_main'];
+                        imgSecond = _imgSecond[index]['img_second'];
+                        name = _nameItem[index]['name_item'];
+                        discription = _discriptionItem[index]['discription_item'];
+                        calories = _caloriesItem[index]['calories_item'];
+                        belki = _belkiItem[index]['belki_item'];
+                        fats = _fatsItem[index]['fats_item'];
+                        carbons = _carbonsItem[index]['carbons_item'];
+                        time = _timeItem[index]['time_item'];
+                        info = _infoItem[index]['info_item'];
+                        price = _priceItem[index]['price_item'];
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ItemDetail(
+                                screen: screen,
+                                idItem: idItem,
+                                imgMain: imgMain,
+                                imgSecond: imgSecond,
+                                name: name,
+                                discription: discription,
+                                calories: calories,
+                                belki: belki,
+                                fats: fats,
+                                carbons: carbons,
+                                time: time,
+                                info: info,
+                                price: price,
+                                sale: '',
+                                id: '',
+                                page: widget.page,
+                                idCategories: "",
+                                nameCategories: "",
+                              ),
+                            ));
+                      },
+                      child: Row(
+                        children: [
+                          Container(
+                            width: Dimensions.listViewImgSize,
+                            height: Dimensions.listViewImgSize,
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                BorderRadius.circular(Dimensions.radius20),
+                                color: Colors.white38,
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: NetworkImage(API.loadImagelib +
+                                      _imgMain[index]['img_main']),
+                                )),
+                          ),
+                          Expanded(
+                            child: Container(
+                              height: Dimensions.listViewTextContSize,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                    topRight:
+                                    Radius.circular(Dimensions.radius20),
+                                    bottomRight:
+                                    Radius.circular(Dimensions.radius20)),
+                                color: Colors.white,
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    left: Dimensions.width20,
+                                    right: Dimensions.width20,
+                                    top: 5,
+                                    bottom: 5
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      _nameItem[index]['name_item'],
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        fontFamily: 'Roboto',
+                                        fontSize: Dimensions.font18,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                    SizedBox(height: Dimensions.height10),
+                                    Text(
+                                      _discriptionItem[index]['discription_item'],
+                                      textAlign: TextAlign.start,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        fontFamily: 'Roboto',
+                                        fontSize: Dimensions.font8,
+                                        color: Color(0xFFccc7c5),
+                                      ),
+                                    ),
+                                    SizedBox(height: Dimensions.height10),
+                                    Row(
+                                      children: [
+                                        Container(
+                                          padding: EdgeInsets.all(Dimensions.pricePadding),
+                                          decoration: BoxDecoration(
+                                              color: Colors.amber,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10.0))),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                _priceItem[index]['price_item'],
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  fontFamily: 'Roboto',
+                                                  fontSize: Dimensions.font18,
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+                                              ),
+                                              SizedBox(width: 2),
+                                              Text(
+                                                "₽",
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  fontFamily: 'Roboto',
+                                                  fontSize: Dimensions.font12,
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          );
+        }
       }
       else{
         return Expanded(

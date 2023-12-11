@@ -42,7 +42,7 @@ class Dimensions {
 
   //list view size (популярные блюда)
   static double listViewImgSize = screenHeight / 6.85;
-  static double listViewTextContSize = screenHeight / 8.5;
+  static double listViewTextContSize = screenHeight / 8.3;
 
   //list cart
   static double listViewImgSizeCart = screenWedth / 4;
@@ -67,4 +67,6 @@ class Dimensions {
   static double CategoriesCartSize = screenWedth / 2.25;
   static double CategoriesImgSize = screenWedth / 4.1;
   static double CategoriesImgLeft = screenWedth / 11.75;
+
+  static double ImgNoSearch = screenHeight / 4.4;
 }

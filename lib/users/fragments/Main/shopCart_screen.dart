@@ -187,79 +187,81 @@ class _ShopCartState extends State<ShopCart> {
             elevation: 0,
           ),
           backgroundColor: Color(0xFFF5F5F3),
-          body: Column(children: [
-            Container(
-              padding: EdgeInsets.only(top: Dimensions.screenHeight / 3),
-              child: Column(
-                children: [
-                  Text(
-                    "Ой, пусто!",
-                    maxLines: 1,
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: Dimensions.font24,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  SizedBox(height: Dimensions.height10),
-                  Container(
-                    padding: EdgeInsets.only(
-                        left: Dimensions.width50, right: Dimensions.width50),
-                    child: Text(
-                      "Ваша корзина пуста, откройте «Меню» и выберите понравившийся товар.",
-                      maxLines: 2,
-                      textAlign: TextAlign.center,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: Dimensions.font12,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
+          body: Center(
+            child: SingleChildScrollView(
+              physics: NeverScrollableScrollPhysics(),
+              child: Container(
+                  child: Column(
+                    children: [
+                      Text(
+                        "Ой, пусто!",
+                        maxLines: 1,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontFamily: 'Roboto',
+                          fontSize: Dimensions.font24,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
-                    ),
-                  ),
-                  SizedBox(height: Dimensions.height10),
-                  Container(
-                    width: Dimensions.buttonfullwidgt,
-                    height: Dimensions.height45,
-                    child: RawMaterialButton(
-                      fillColor: Colors.amber,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      elevation: 2,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Перейти в меню",
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: Dimensions.font18,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w500,
-                            ),
+                      SizedBox(height: Dimensions.height10),
+                      Container(
+                        padding: EdgeInsets.only(
+                            left: Dimensions.width50, right: Dimensions.width50),
+                        child: Text(
+                          "Ваша корзина пуста, откройте «Меню» и выберите понравившийся товар.",
+                          maxLines: 2,
+                          textAlign: TextAlign.center,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: Dimensions.font12,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500,
                           ),
-                        ],
+                        ),
                       ),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    MainBoardScreen(page: 1)));
-                      },
-                    ),
+                      SizedBox(height: Dimensions.height10),
+                      Container(
+                        width: Dimensions.buttonfullwidgt,
+                        height: Dimensions.height45,
+                        child: RawMaterialButton(
+                          fillColor: Colors.amber,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          elevation: 2,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Перейти в меню",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontSize: Dimensions.font18,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        MainBoardScreen(page: 1)));
+                          },
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            )
-          ],),
+                ),
+            ),
+          )
         );
       } else {
         return Scaffold(
