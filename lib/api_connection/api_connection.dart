@@ -1,6 +1,6 @@
 class API
 {
-  static const hostConnect = "http://192.168.0.118/api_food";
+  static const hostConnect = "http://192.168.0.116/api_food";
   static const hostConnectUser = "$hostConnect/user";
 
   static const validateEmail = "$hostConnect/user/validate_email.php";
@@ -21,5 +21,5 @@ class API
   static const searchItem = "$hostConnect/user/search_item.php";
 
   static const sumLoad = "$hostConnect/user/sum.php";
-  static const loadImagelib = "http://192.168.0.118/api_food/images/";
+  static const loadImagelib = "http://192.168.0.116/api_food/images/";
 }

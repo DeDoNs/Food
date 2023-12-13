@@ -38,15 +38,13 @@ class _qrScannerState extends State<qrScanner> {
 
   List _idItem = [];
   List _imgMain = [];
-  List _imgSecond = [];
   List _nameItem = [];
-  List _discriptionItem = [];
+  List _keyStateItem = [];
+  List _massItem = [];
   List _caloriesItem = [];
   List _belkiItem = [];
   List _fatsItem = [];
   List _carbonsItem = [];
-  List _timeItem = [];
-  List _infoItem = [];
   List _priceItem = [];
 
   loadItem() async{
@@ -62,15 +60,13 @@ class _qrScannerState extends State<qrScanner> {
           final data = jsonDecode(res.body);
           _idItem = data['dataIdItem'];
           _imgMain = data['dataImgMainItem'];
-          _imgSecond = data['dataImgSecondItem'];
           _nameItem = data['dataNameItem'];
-          _discriptionItem = data['dataDiscriptionItem'];
+          _keyStateItem = data['dataKeyStateItem'];
+          _massItem = data['dataMassItem'];
           _caloriesItem = data['dataCaloriesItem'];
           _belkiItem = data['dataBelkiItem'];
           _fatsItem = data['dataFatsItem'];
           _carbonsItem = data['dataCarbonsItem'];
-          _timeItem = data['dataTimeItem'];
-          _infoItem = data['dataInfoItem'];
           _priceItem = data['dataPriceItem'];
         });
         saveCart();
@@ -96,6 +92,8 @@ class _qrScannerState extends State<qrScanner> {
           'id_ItemCart': _idItem[0]['id'],
           'name_ItemCart' : _nameItem[0]['name_item'],
           'imgMain_ItemCart' : _imgMain[0]['img_main'],
+          'keyState_itemCart' : _keyStateItem[0]['keyState_item'],
+          'mass_itemCart' : _massItem[0]['mass_item'],
           'calories_itemCart' : _caloriesItem[0]['calories_item'],
           'belki_itemCart' : _belkiItem[0]['belki_item'],
           'fats_itemCart' : _fatsItem[0]['fats_item'],

@@ -8,7 +8,6 @@ import 'package:http/http.dart' as http;
 import 'package:regester/height_screen/dimensions.dart';
 import 'package:regester/users/authentication/signup_screen.dart';
 import 'package:regester/users/fragments/Main/board.dart';
-import 'package:regester/users/fragments/mainboard_screen.dart';
 import 'package:regester/users/userPreferences/user_preferences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

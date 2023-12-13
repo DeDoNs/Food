@@ -28,9 +28,11 @@ class Dimensions {
 
   static double font8 = screenHeight / 75;
   static double font12 = screenHeight / 56;
+  static double font16 = screenHeight / 50;
   static double font18 = screenHeight / 45;
   static double font20 = screenHeight / 36;
   static double font24 = screenHeight / 33;
+  static double font32 = screenHeight / 26;
 
   static double radius15 = screenHeight / 55.7;
   static double radius20 = screenHeight / 41.75;
@@ -69,4 +71,9 @@ class Dimensions {
   static double CategoriesImgLeft = screenWedth / 11.75;
 
   static double ImgNoSearch = screenHeight / 4.4;
+
+  static double ImgItemAddCart = screenWedth / 1.45;
+  static double BottomButtonAddCart = screenHeight / 11.5;
+  static double PickButtonAddCart = screenWedth / 3.45;
+  static double AddButtonAddCart = screenWedth / 1.75;
 }

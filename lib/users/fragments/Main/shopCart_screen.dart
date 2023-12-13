@@ -49,6 +49,8 @@ class _ShopCartState extends State<ShopCart> {
   List _priceFullAll = [];
   List _nameItem = [];
   List _imgMain = [];
+  List _keyState = [];
+  List _mass = [];
   List _calories = [];
   List _belki = [];
   List _fats = [];
@@ -72,6 +74,8 @@ class _ShopCartState extends State<ShopCart> {
           _idItem = data['dataIdItem'];
           _nameItem = data['dataNameItem'];
           _imgMain = data['dataImgMainItem'];
+          _keyState = data['dataKeyStateItem'];
+          _mass = data['dataMassItem'];
           _calories = data['dataCaloriesItem'];
           _belki = data['dataBelkiItem'];
           _fats = data['dataFatsItem'];
@@ -580,9 +584,7 @@ class _ShopCartState extends State<ShopCart> {
                                 ),
                               );
                             }),
-                        Divider(color: Colors.black26,
-                            height: 2,
-                            thickness: 0.5),
+                        Divider(color: Colors.black26, height: 2, thickness: 0.5),
                         SizedBox(height: Dimensions.height10),
                         Container(
                           padding: EdgeInsets.only(
@@ -670,28 +672,23 @@ class _ShopCartState extends State<ShopCart> {
                           onPressed: () {
                             showModalBottomSheet(context: context,
                                 isDismissible: false,
+                                isScrollControlled: true,
                                 backgroundColor: Colors.transparent,
                                 builder: (context) {
                                   return Container(
-                                    height: 140,
+                                    height: Dimensions.screenHeight/1.07,
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.only(
                                           topRight: Radius.circular(30),
                                           topLeft: Radius.circular(30)),
                                     ),
-                                    padding: EdgeInsets.only(
-                                        bottom: Dimensions.height15,
-                                        left: Dimensions.width30),
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
                                         Padding(
-                                          padding: EdgeInsets.only(
-                                              bottom: Dimensions.height15),
+                                          padding: EdgeInsets.only(left: 20, right: 6, top: 6),
                                           child: Row(
-                                            mainAxisAlignment: MainAxisAlignment
-                                                .spaceBetween,
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                 "Оформление заказа",
@@ -724,34 +721,40 @@ class _ShopCartState extends State<ShopCart> {
                                             ],
                                           ),
                                         ),
-                                        Container(
-                                          width: Dimensions.buttonfullwidgt,
-                                          height: Dimensions.height45,
-                                          child: RawMaterialButton(
-                                            fillColor: Colors.amber,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(
-                                                  50),
-                                            ),
-                                            elevation: 2,
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment
-                                                  .center,
-                                              children: [
-                                                Text(
-                                                  "Оплатить",
-                                                  maxLines: 1,
-                                                  overflow: TextOverflow.ellipsis,
-                                                  style: TextStyle(
-                                                    fontFamily: 'Roboto',
-                                                    fontSize: Dimensions.font18,
-                                                    color: Colors.black,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
+                                        Expanded(
+                                          child: Align(
+                                            alignment: FractionalOffset.bottomCenter,
+                                            child: Container(
+                                              margin: EdgeInsets.only(bottom: Dimensions.height15),
+                                              width: Dimensions.buttonfullwidgt,
+                                              height: Dimensions.height45,
+                                              child: RawMaterialButton(
+                                                fillColor: Colors.amber,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(
+                                                      50),
                                                 ),
-                                              ],
+                                                elevation: 2,
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment
+                                                      .center,
+                                                  children: [
+                                                    Text(
+                                                      "Оплатить",
+                                                      maxLines: 1,
+                                                      overflow: TextOverflow.ellipsis,
+                                                      style: TextStyle(
+                                                        fontFamily: 'Roboto',
+                                                        fontSize: Dimensions.font18,
+                                                        color: Colors.black,
+                                                        fontWeight: FontWeight.w500,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                onPressed: () {},
+                                              ),
                                             ),
-                                            onPressed: () {},
                                           ),
                                         ),
                                       ],
