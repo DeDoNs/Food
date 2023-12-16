@@ -78,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF5F5F3),
+      backgroundColor: Colors.white,
       body: LayoutBuilder(
         builder: (context, cons) {
           return ConstrainedBox(
@@ -86,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
               minHeight: cons.maxHeight,
             ),
             child: SingleChildScrollView(
-              physics: NeverScrollableScrollPhysics(),
+              physics: BouncingScrollPhysics(),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -235,9 +235,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                               SizedBox(height: 20),
-                              Material(
-
-                                child: InkWell(
+                              InkWell(
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
@@ -268,7 +266,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ],
                                   ),
                                 ),
-                              ),
 
                             ],
                           ),

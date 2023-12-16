@@ -387,35 +387,35 @@ class _MenuItemState extends State<MenuItem> {
         if(noSearch){
           return Expanded(
             child: Center(
-              child: SingleChildScrollView(
-                physics: NeverScrollableScrollPhysics(),
-                  child: Container(
-                    padding: EdgeInsets.only(left: Dimensions.width40, right: Dimensions.width40),
-                    child: Column(
-                      children: [
-                        Container(
-                            width: Dimensions.ImgNoSearch,
-                            height: Dimensions.ImgNoSearch,
-                            child: Image.asset("images/icon_nosearch.png", fit: BoxFit.cover,)
-                        ),
-                        SizedBox(height: Dimensions.height15,),
-                        Text(
-                          "Хорошая попытка! Но такого нигде нет. Попробуете изменить запрос?",
-                          maxLines: 3,
-                          textAlign: TextAlign.center,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontFamily: 'Roboto',
-                            fontSize: Dimensions.font18,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w500,
+                child: SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                    child: Container(
+                      padding: EdgeInsets.only(left: Dimensions.width40, right: Dimensions.width40),
+                      child: Column(
+                        children: [
+                          Container(
+                              width: Dimensions.ImgNoSearch,
+                              height: Dimensions.ImgNoSearch,
+                              child: Image.asset("images/icon_nosearch.png", fit: BoxFit.cover,)
                           ),
-                        ),
-                      ],
+                          SizedBox(height: Dimensions.height15,),
+                          Text(
+                            "Хорошая попытка! Но такого нигде нет. Попробуете изменить запрос?",
+                            maxLines: 3,
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontFamily: 'Roboto',
+                              fontSize: Dimensions.font18,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                    ),
                   ),
                 ),
               ),
-            ),
           );
         }else{
           return Expanded(

@@ -73,7 +73,7 @@ class _qrScannerState extends State<qrScanner> {
       }
     }
     catch(e){
-      print(e.toString());
+      print("load item" + e.toString());
     }
   }
 
@@ -83,8 +83,6 @@ class _qrScannerState extends State<qrScanner> {
   }
 
   saveCart() async{
-    int price = int.parse(_priceItem[0]['price_item']);
-    int price_all = price*1;
     try{
       var res = await http.post(
         Uri.parse(API.saveCart),
@@ -92,8 +90,8 @@ class _qrScannerState extends State<qrScanner> {
           'id_ItemCart': _idItem[0]['id'],
           'name_ItemCart' : _nameItem[0]['name_item'],
           'imgMain_ItemCart' : _imgMain[0]['img_main'],
-          'keyState_itemCart' : _keyStateItem[0]['keyState_item'],
-          'mass_itemCart' : _massItem[0]['mass_item'],
+          'keyState_itemCart' : _keyStateItem[0]['key_state'],
+          'mass_itemCart' : _massItem[0]['mass'],
           'calories_itemCart' : _caloriesItem[0]['calories_item'],
           'belki_itemCart' : _belkiItem[0]['belki_item'],
           'fats_itemCart' : _fatsItem[0]['fats_item'],
@@ -101,7 +99,7 @@ class _qrScannerState extends State<qrScanner> {
           'user_login' : dataLogin,
           'number_ItemCart': "1",
           'price_one': _priceItem[0]['price_item'],
-          'price_full': price_all.toString(),
+          'price_full': _priceItem[0]['price_item'],
         },
       );
       if(res.statusCode == 200){ //200 - API OK
@@ -133,6 +131,7 @@ class _qrScannerState extends State<qrScanner> {
                 setState(() {
                   idItem_load = barcodes.rawValue.toString();
                 });
+                print(idItem_load);
                 loadItem();
               }
             },
