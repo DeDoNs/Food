@@ -28,25 +28,8 @@ signOutUser() async{
 
 class _ProfileScreenState extends State<ProfileScreen> {
 
-  static List StatusQueue = [];
-
-  Future loadStatusQueue() async {
-    try {
-      final res = await http.get(Uri.parse(API.loadStatusQueue));
-      if (res.statusCode == 200) {
-        setState(() {
-          final data = jsonDecode(res.body);
-          StatusQueue = data['dataStatus'];
-        });
-      }
-    } catch (e) {
-      print(e.toString());
-    }
-  }
-
   @override
   void initState() {
-    loadStatusQueue();
     super.initState();
   }
 
@@ -110,34 +93,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 children: [
                   Text(
                     "История заказов",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Icon(
-                    Icons.arrow_forward,
-                    size: 18,
-                    color: Colors.amber,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-        GestureDetector(
-          onTap: () {
-            Fluttertoast.showToast(msg: "Статус очереди: ${StatusQueue[0]['status_queue']}");
-          },
-          child: Card(
-            margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Padding(
-              padding: EdgeInsets.all(16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Статус очереди",
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,

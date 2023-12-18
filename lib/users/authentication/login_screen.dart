@@ -117,7 +117,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             children: [
                               //email
                               TextFormField(
-
                                 controller: loginController,
                                 validator: (val) => val == ""
                                     ? "Пожалуйста введите логин"

@@ -84,7 +84,7 @@ class _MainBoardState extends State<MainBoardScreen> {
                         selectedProfile=true;
                       });
                     },
-                    icon: selectedMenu ? Icons.menu : Icons.menu,
+                    icon: selectedMenu ? Icons.fastfood_outlined : Icons.fastfood,
                     iconColor: Colors.grey,
                     text: "Меню",
                     textColor: Colors.black,

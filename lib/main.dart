@@ -42,6 +42,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
     _lottieAnimation = AnimationController(vsync: this);
     FlutterNativeSplash.remove();
     Future.delayed(Duration(seconds: 1)).then((value) => _lottieAnimation.forward().then((value) => setState(() {isLoading = false; if(dataLogin!=""){setState(() {tokenLogin=1;});}})));
+    // 1 секунда для релиз версии (6)
     //Timer(Duration(seconds: 7), () => setState(() {isLoading = false; if(dataLogin!=""){setState(() {tokenLogin=1;});}}));
   }
 
@@ -88,14 +89,14 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
               Lottie.asset(
                 'images/Logo.json',
                 onLoaded: (composition) {
-                  _lottieAnimation..duration = composition.duration; // set the duration of our AnimationController to the length of the lottie animation
+                  _lottieAnimation..duration = composition.duration;
                 },
                 controller: _lottieAnimation,
                 repeat: false,
                 animate: false,
               ),
               ShowUpAnimation(
-                delayStart: Duration(seconds: 1),
+                delayStart: Duration(seconds: 1), //1 секунда для релиз версии (4)
                 animationDuration: Duration(seconds: 1),
                 curve: Curves.bounceIn,
                 direction: Direction.vertical,
