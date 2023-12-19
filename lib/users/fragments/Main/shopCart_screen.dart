@@ -469,13 +469,14 @@ class _ShopCartState extends State<ShopCart> {
                                             ),
                                           ),
                                           Padding(
-                                            padding: EdgeInsets.only(right: 10, bottom: 10),
+                                            padding: EdgeInsets.only(right: 0, bottom: 0),
                                             child: Row(
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
                                                 Container(
                                                   height: Dimensions.height30,
-                                                  width: 90,
+                                                  width: Dimensions.PlusMinusShopCard,
+                                                  margin: EdgeInsets.only(right: Dimensions.height5, bottom: Dimensions.height5),
                                                   padding: EdgeInsets.all(5.0),
                                                   decoration: BoxDecoration(
                                                       color: Colors.grey.shade200,
@@ -511,7 +512,7 @@ class _ShopCartState extends State<ShopCart> {
                                                             });
                                                           }
                                                         },
-                                                        icon: Icon(Icons.remove, size: Dimensions.iconSize18),
+                                                        icon: Icon(Icons.remove, size: 16),
                                                       ),
                                                       Text(
                                                           cart_all.toString(),
@@ -540,7 +541,7 @@ class _ShopCartState extends State<ShopCart> {
                                                           updatePrice();
                                                           });
                                                         },
-                                                        icon: Icon(Icons.add, color: Colors.black, size: Dimensions.iconSize18),
+                                                        icon: Icon(Icons.add, color: Colors.black, size: 16),
                                                       )
                                                     ],
                                                   ),
@@ -618,147 +619,145 @@ class _ShopCartState extends State<ShopCart> {
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
-                              IconButton(
-                                  constraints: const BoxConstraints(minWidth: 22, maxWidth: 22),
-                                  splashRadius: 0.0001,
-                                  padding: EdgeInsets.only(top: 2),
-                                  onPressed: (){
-                                    showDialog(context: context, builder: (BuildContext context){
-                                      return AlertDialog(
-                                        title: Text(
-                                          "Итого",
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                            fontFamily: 'Roboto',
-                                            fontSize: Dimensions.font18,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w700,
-                                          ),
+                              SizedBox(width: Dimensions.width10),
+                              GestureDetector(
+                                onTap: (){
+                                  showDialog(context: context, builder: (BuildContext context){
+                                    return AlertDialog(
+                                      title: Text(
+                                        "Итого",
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontFamily: 'Roboto',
+                                          fontSize: Dimensions.font18,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w700,
                                         ),
-                                        titlePadding: EdgeInsets.only(top: 15, left: 15),
-                                        contentPadding: EdgeInsets.only(top: 15, left: 15, right: 15),
-                                        content: Container(
-                                          height: 100,
-                                          child: Column(
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    "Пищевая ценность",
-                                                    maxLines: 2,
-                                                    overflow: TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                      fontFamily: 'Roboto',
-                                                      fontSize: Dimensions.font12,
-                                                      color: Colors.black,
-                                                      fontWeight: FontWeight.w400,
-                                                    ),
+                                      ),
+                                      titlePadding: EdgeInsets.only(top: Dimensions.height10, left: Dimensions.height10),
+                                      contentPadding: EdgeInsets.only(top: Dimensions.height10, left: Dimensions.height10, right: Dimensions.height10),
+                                      content: Container(
+                                        height: Dimensions.AlertCalories,
+                                        child: Column(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text(
+                                                  "Пищевая ценность",
+                                                  maxLines: 2,
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                    fontFamily: 'Roboto',
+                                                    fontSize: Dimensions.font12,
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.w400,
                                                   ),
-                                                  Text(
-                                                    "${_calories[0]['SUM(calories_item)']} ккал",
-                                                    maxLines: 2,
-                                                    overflow: TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                      fontFamily: 'Roboto',
-                                                      fontSize: Dimensions.font12,
-                                                      color: Colors.black,
-                                                      fontWeight: FontWeight.w400,
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                              SizedBox(height: 5),
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    "Белки",
-                                                    maxLines: 2,
-                                                    overflow: TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                      fontFamily: 'Roboto',
-                                                      fontSize: Dimensions.font12,
-                                                      color: Colors.black,
-                                                      fontWeight: FontWeight.w400,
-                                                    ),
+                                                ),
+                                                Text(
+                                                  "${_calories[0]['SUM(calories_item)']} ккал",
+                                                  maxLines: 2,
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                    fontFamily: 'Roboto',
+                                                    fontSize: Dimensions.font12,
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.w400,
                                                   ),
-                                                  Text(
-                                                    "${_belki[0]['SUM(belki_item)']} г",
-                                                    maxLines: 2,
-                                                    overflow: TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                      fontFamily: 'Roboto',
-                                                      fontSize: Dimensions.font12,
-                                                      color: Colors.black,
-                                                      fontWeight: FontWeight.w400,
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                              SizedBox(height: 5),
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    "Жиры",
-                                                    maxLines: 2,
-                                                    overflow: TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                      fontFamily: 'Roboto',
-                                                      fontSize: Dimensions.font12,
-                                                      color: Colors.black,
-                                                      fontWeight: FontWeight.w400,
-                                                    ),
+                                                )
+                                              ],
+                                            ),
+                                            SizedBox(height: Dimensions.height5),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text(
+                                                  "Белки",
+                                                  maxLines: 2,
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                    fontFamily: 'Roboto',
+                                                    fontSize: Dimensions.font12,
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.w400,
                                                   ),
-                                                  Text(
-                                                    "${_fats[0]['SUM(fats_item)']} г",
-                                                    maxLines: 2,
-                                                    overflow: TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                      fontFamily: 'Roboto',
-                                                      fontSize: Dimensions.font12,
-                                                      color: Colors.black,
-                                                      fontWeight: FontWeight.w400,
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                              SizedBox(height: 5),
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    "Углеводы",
-                                                    maxLines: 2,
-                                                    overflow: TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                      fontFamily: 'Roboto',
-                                                      fontSize: Dimensions.font12,
-                                                      color: Colors.black,
-                                                      fontWeight: FontWeight.w400,
-                                                    ),
+                                                ),
+                                                Text(
+                                                  "${_belki[0]['SUM(belki_item)']} г",
+                                                  maxLines: 2,
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                    fontFamily: 'Roboto',
+                                                    fontSize: Dimensions.font12,
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.w400,
                                                   ),
-                                                  Text(
-                                                    "${_carbons[0]['SUM(carbons_item)']} г",
-                                                    maxLines: 2,
-                                                    overflow: TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                      fontFamily: 'Roboto',
-                                                      fontSize: Dimensions.font12,
-                                                      color: Colors.black,
-                                                      fontWeight: FontWeight.w400,
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            ],
-                                          ),
+                                                )
+                                              ],
+                                            ),
+                                            SizedBox(height: Dimensions.height5),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text(
+                                                  "Жиры",
+                                                  maxLines: 2,
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                    fontFamily: 'Roboto',
+                                                    fontSize: Dimensions.font12,
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  "${_fats[0]['SUM(fats_item)']} г",
+                                                  maxLines: 2,
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                    fontFamily: 'Roboto',
+                                                    fontSize: Dimensions.font12,
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                            SizedBox(height: Dimensions.height5),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text(
+                                                  "Углеводы",
+                                                  maxLines: 2,
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                    fontFamily: 'Roboto',
+                                                    fontSize: Dimensions.font12,
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  "${_carbons[0]['SUM(carbons_item)']} г",
+                                                  maxLines: 2,
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                    fontFamily: 'Roboto',
+                                                    fontSize: Dimensions.font12,
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ],
                                         ),
-                                      );});
-                                  },
-                                  icon: Icon(Icons.info_outline, size: Dimensions.iconSize12, color: Colors.grey,))
+                                      ),
+                                    );});
+                                },
+                                  child: Icon(Icons.info_outline, size: Dimensions.iconSize12, color: Colors.grey,))
                             ],
                           ),
                         ),
@@ -964,11 +963,11 @@ class _ShopCartState extends State<ShopCart> {
                                                                                                   ),
                                                                                                   Expanded(
                                                                                                     child: Container(
-                                                                                                      margin: EdgeInsets.only(bottom: 5),
+                                                                                                      padding: EdgeInsets.only(bottom: 5),
                                                                                                       child: Row(
                                                                                                         children: [
                                                                                                           Container(
-                                                                                                            padding: EdgeInsets.all(5.0),
+                                                                                                            padding: EdgeInsets.all(Dimensions.pricePadding),
                                                                                                             decoration: BoxDecoration(color: Colors.amber, borderRadius: BorderRadius.all(Radius.circular(10.0))),
                                                                                                             child: Row(
                                                                                                               mainAxisAlignment:
@@ -1058,7 +1057,7 @@ class _ShopCartState extends State<ShopCart> {
                                                                             children: [
                                                                               Container(
                                                                                   width: Dimensions.screenWedth/2.2,
-                                                                                  height: 50,
+                                                                                  height: 55,
                                                                                   decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(10))),
                                                                                   child: Row(
                                                                                     children: [
@@ -1097,7 +1096,7 @@ class _ShopCartState extends State<ShopCart> {
                                                                                 ),
                                                                               Container(
                                                                                   width: Dimensions.screenWedth/2.2,
-                                                                                  height: 50,
+                                                                                  height: 55,
                                                                                   decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(10))),
                                                                                   child: Row(
                                                                                     children: [

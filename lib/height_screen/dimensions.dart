@@ -11,6 +11,7 @@ class Dimensions {
   static double pageViewContainer = screenHeight / 3.74;
   static double pageViewTextContainer = screenHeight / 12;
 
+  static double height5 = screenHeight / 167;
   static double height10 = screenHeight / 83.5;
   static double height15 = screenHeight / 55.7;
   static double height20 = screenHeight / 41.75;
@@ -63,8 +64,10 @@ class Dimensions {
   static double CatdividerEndInd = screenWedth / 1.4;
   static double CartdividerInd = screenWedth / 11.75;
   static double CartdividerEndInd = screenWedth / 1.35;
+  static double PlusMinusShopCard = screenWedth / 3.3;
 
-  static double pricePadding = screenHeight / 167;
+  static double pricePadding = screenHeight / 180;
+  static double AlertCalories = screenHeight / 7.2;
 
   static double CategoriesCartSize = screenWedth / 2.25;
   static double CategoriesImgSize = screenWedth / 4.1;

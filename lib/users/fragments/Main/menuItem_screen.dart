@@ -242,7 +242,6 @@ class _MenuItemState extends State<MenuItem> {
             child: Container(
               width: double.infinity,
               height: 50,
-              padding: EdgeInsets.only(top: 5, bottom: 5, left: 5),
               margin: EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: Color(0xFFEEEEEE),
