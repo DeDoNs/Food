@@ -67,7 +67,7 @@ class Dimensions {
   static double PlusMinusShopCard = screenWedth / 3.3;
 
   static double pricePadding = screenHeight / 180;
-  static double AlertCalories = screenHeight / 7.2;
+  static double AlertCalories = screenHeight / 7.3;
 
   static double CategoriesCartSize = screenWedth / 2.25;
   static double CategoriesImgSize = screenWedth / 4.1;

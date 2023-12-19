@@ -584,10 +584,10 @@ class _MenuItemState extends State<MenuItem> {
                                                           fontWeight: FontWeight.w700,
                                                         ),
                                                       ),
-                                                      titlePadding: EdgeInsets.only(top: 15, left: 15),
-                                                      contentPadding: EdgeInsets.only(top: 15, left: 15, right: 15),
+                                                      titlePadding: EdgeInsets.only(top: Dimensions.height10, left: Dimensions.height10),
+                                                      contentPadding: EdgeInsets.only(top: Dimensions.height10, left: Dimensions.height10, right: Dimensions.height10),
                                                       content: Container(
-                                                        height: 100,
+                                                        height: Dimensions.AlertCalories,
                                                         child: Column(
                                                           children: [
                                                             Row(
@@ -617,7 +617,7 @@ class _MenuItemState extends State<MenuItem> {
                                                                 )
                                                               ],
                                                             ),
-                                                            SizedBox(height: 5),
+                                                            SizedBox(height: Dimensions.height5),
                                                             Row(
                                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                               children: [
@@ -645,7 +645,7 @@ class _MenuItemState extends State<MenuItem> {
                                                                 )
                                                               ],
                                                             ),
-                                                            SizedBox(height: 5),
+                                                            SizedBox(height: Dimensions.height5),
                                                             Row(
                                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                               children: [
@@ -673,7 +673,7 @@ class _MenuItemState extends State<MenuItem> {
                                                                 )
                                                               ],
                                                             ),
-                                                            SizedBox(height: 5),
+                                                            SizedBox(height: Dimensions.height5),
                                                             Row(
                                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                               children: [
@@ -880,78 +880,79 @@ class _MenuItemState extends State<MenuItem> {
                                 padding: EdgeInsets.only(
                                     left: Dimensions.width20,
                                     right: Dimensions.width20,
-                                    top: 5,
-                                    bottom: 5
                                 ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      _nameItem[index]['name_item'],
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        fontFamily: 'Roboto',
-                                        fontSize: Dimensions.font18,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                    SizedBox(height: Dimensions.height10),
-                                    Text(
-                                      _discriptionItem[index]['discription_item'],
-                                      textAlign: TextAlign.start,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        fontFamily: 'Roboto',
-                                        fontSize: Dimensions.font8,
-                                        color: Color(0xFFccc7c5),
-                                      ),
-                                    ),
-                                    SizedBox(height: Dimensions.height10),
-                                    Row(
-                                      children: [
-                                        Container(
-                                          padding: EdgeInsets.all(Dimensions.pricePadding),
-                                          decoration: BoxDecoration(
-                                              color: Colors.amber,
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(10.0))),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                _priceItem[index]['price_item'],
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
-                                                  fontFamily: 'Roboto',
-                                                  fontSize: Dimensions.font18,
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.w700,
-                                                ),
-                                              ),
-                                              SizedBox(width: 2),
-                                              Text(
-                                                "₽",
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
-                                                  fontFamily: 'Roboto',
-                                                  fontSize: Dimensions.font12,
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.w700,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
+                                child: Container(
+                                  margin: EdgeInsets.only(top: Dimensions.height5, bottom: Dimensions.height5),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        _nameItem[index]['name_item'],
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontFamily: 'Roboto',
+                                          fontSize: Dimensions.font18,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w700,
                                         ),
-                                      ],
-                                    ),
-                                  ],
+                                      ),
+                                      SizedBox(height: Dimensions.height5),
+                                      Text(
+                                        _discriptionItem[index]['discription_item'],
+                                        textAlign: TextAlign.start,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontFamily: 'Roboto',
+                                          fontSize: Dimensions.font8,
+                                          color: Color(0xFFccc7c5),
+                                        ),
+                                      ),
+                                      SizedBox(height: Dimensions.height5),
+                                      Row(
+                                        children: [
+                                          Container(
+                                            padding: EdgeInsets.all(Dimensions.pricePadding),
+                                            decoration: BoxDecoration(
+                                                color: Colors.amber,
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(10.0))),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  _priceItem[index]['price_item'],
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                    fontFamily: 'Roboto',
+                                                    fontSize: Dimensions.font18,
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                ),
+                                                SizedBox(width: 2),
+                                                Text(
+                                                  "₽",
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                    fontFamily: 'Roboto',
+                                                    fontSize: Dimensions.font12,
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
